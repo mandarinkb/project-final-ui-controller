@@ -1,0 +1,30 @@
+<app-header></app-header><!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar><!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}"><!--page-->
+  <div class="wrapper wrapper-content">
+    <div class="card card-block animated fadeIn">
+      <div class="row">
+        <div class="col-md-12" style="max-width: 98%;margin: auto;">
+          <label class="control-label col-md-12" style="margin-left:-15px">My File
+          </label>
+          <button type="button" class="btn btn-outline btn-default">Default</button>
+          <button type="button" class="btn btn-outline btn-primary">Primary</button>
+          <button type="button" class="btn btn-outline btn-success">Success</button>
+          <button type="button" class="btn btn-outline btn-info">Info</button>
+          <button type="button" class="btn btn-outline btn-warning">Warning</button>
+          <button type="button" class="btn btn-outline btn-danger">Danger</button>
+          <button type="button" class="btn btn-outline btn-link">Link</button>
+          <p>
+            share-file works!
+          </p>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div>
+      <!--<strong>Copyright</strong> -->Document Management &copy; 2019
+    </div>
+  </div>
+</section><!--end page-->

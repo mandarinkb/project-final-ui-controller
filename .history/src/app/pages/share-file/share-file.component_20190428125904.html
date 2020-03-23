@@ -1,0 +1,38 @@
+<app-header></app-header><!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar><!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}"><!--page-->
+  <div class="wrapper wrapper-content">
+
+      <div class="row">
+    <div class="card card-block animated fadeIn">
+      
+        <div class="col-md-12" style="max-width: 98%;margin: auto;">
+          <label class="control-label col-md-12" style="margin-left:-15px">Share File
+          </label>
+          <div class="row">
+          <div class="col-md-12"> 
+            <div style="float: right;">
+                <button type="button" class="btn btn-sm btn-info" style="width: 120px;">สมาชิก</button>
+                <button type="button" class="btn btn-sm btn-info" style="margin-left: 26px;width: 120px;">เอกสารที่ใช้ร่วมกัน</button>
+            </div>        
+          </div>
+        </div>
+          <div class="col-md-12">
+            <p>
+              share-file works!
+            </p>
+          </div>
+
+  
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="footer">
+    <div>
+      <!--<strong>Copyright</strong> -->Document Management &copy; 2019
+    </div>
+  </div>
+</section><!--end page-->

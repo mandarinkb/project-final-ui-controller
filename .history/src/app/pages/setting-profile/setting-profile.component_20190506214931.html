@@ -1,0 +1,37 @@
+<app-header></app-header><!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar><!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}"><!--page-->
+  <div class="wrapper wrapper-content" id="page-container">
+
+    <div class="card card-block animated fadeIn" id="content-wrap">
+      <div class="row">
+        <div class="col-md-12" style="max-width: 98%;margin: auto;">
+          <div style="margin-top: 10px;">
+            <h5 class="card-title">Share File </h5>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+                <button type="button" class="btn btn-sm btn-info" style="width: 120px;margin-right: 38px;"
+                  >สมาชิก</button>
+                <button type="button" class="btn btn-sm btn-info" style="margin-right: 26px;width: 120px;"
+                  >เอกสารที่ใช้ร่วมกัน</button>
+              </div>
+            </div>
+          </div>
+          <br>
+          <p>
+            setting-profile works!
+          </p>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+
+  <app-footer></app-footer>
+</section>

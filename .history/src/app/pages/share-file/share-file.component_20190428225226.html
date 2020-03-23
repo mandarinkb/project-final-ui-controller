@@ -1,0 +1,126 @@
+<app-header></app-header><!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar><!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}"><!--page-->
+  <div class="wrapper wrapper-content">
+
+<div class="card card-block animated fadeIn">
+  <div class="row">
+    <div class="col-md-12" style="max-width: 98%;margin: auto;">
+      <h5 class="card-title">Share File2</h5>
+      <div class="row">
+        <div class="col-md-12">
+          <div style="float: right;">
+            <button type="button" class="btn btn-sm btn-info" 
+                    style="width: 120px;margin-right: 38px;" (click)="activeDepartment()">สมาชิก</button>
+            <button type="button" class="btn btn-sm btn-info"
+                    style="margin-right: 26px;width: 120px;" (click)="activeShareFile()">เอกสารที่ใช้ร่วมกัน</button>
+          </div>
+        </div>
+      </div>
+      <br>
+
+<!--สมาชิก component-->
+      <div *ngIf="isActiveDepartment">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card card-block animated fadeIn">
+              <div class="card-body">
+                <h5 class="card-title">สมาชิก</h5>
+                <table class="table table-bordered table-sm">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>ชื่อ-นามสกุล</th>
+                      <th>สถานะ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ธงชัย เที่ยงธรรม</td>
+                      <td>Admin</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div style="margin-left: -49px;">
+                      <pagination-controls (pageChange)="pgDepartment = $event"></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card card-block animated fadeIn">
+              <div class="card-body">
+                <h5 class="card-title">กิจกรรมของสมาชิก</h5>
+                <table class="table table-bordered table-sm">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>วัน-เวลา</th>
+                      <th>ชื่อ-นามสกุล</th>
+                      <th>เหตุการณ์</th>
+                      <th>ประเภท</th>
+                      <th>รายละเอียด</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>2019-04-28</td>
+                      <td>ธงชัย เที่ยงธรรม</td>
+                      <td>อ่าน</td>
+                      <td>ไฟล์</td>
+                      <td>เอกสาร.pdf</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div style="margin-left:-49px;">
+                      <pagination-controls (pageChange)="pgDepartment = $event"></pagination-controls>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group input-group-sm" style="width:146px;float:right;">
+                      <select class="form-control" name="pageChangedName">
+                        <option>10</option>
+                        <option>20</option>
+                        <option>50</option>
+                      </select>
+                      <div class="input-group-append">
+                        <button class="btn btn-primary" style="height:31px;" disabled="true">Per Page</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--จบสมาชิก component-->
+
+<div *ngIf="isActiveShareFile">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card card-block animated fadeIn">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    </div>
+  </div>
+</div>
+    
+  </div>
+  <div class="footer">
+    <div>
+      <!--<strong>Copyright</strong> -->Document Management &copy; 2019
+    </div>
+  </div>
+</section><!--end page-->

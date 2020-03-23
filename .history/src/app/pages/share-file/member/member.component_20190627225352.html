@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-12">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>วัน-เวลา</th>
+              <th>ชื่อ-นามสกุล</th>
+              <th>เหตุการณ์</th>
+              <th>ประเภท</th>
+              <th>รายละเอียด</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of serviceShareFileMember.listDepartmentActivity | paginate: {id: 'departmentActivity', itemsPerPage: perPageDepartmentActivity, currentPage: pgDepartmentActivity }">
+              <td>{{ item.DATE_TIME }}</td>
+              <td>{{ item.NAME }}</td>
+              <td>{{ item.EVENT }}</td>
+              <td>{{ item.TYPE }}</td>
+              <td>{{ item.DETAIL }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-md-6">
+            <div style="margin-left:-49px;">
+              <pagination-controls id="departmentActivity" (pageChange)="pgDepartmentActivity = $event">
+              </pagination-controls>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group input-group-sm" style="width:146px;float:right;">
+              <select class="form-control" (change)="selectOption($event.target.value)"
+                [(ngModel)]="perPageDepartmentActivity">
+                <option [value]="5">5</option>
+                <option [value]="10">10</option>
+                <option [value]="20">20</option>
+                <option [value]="50">50</option>
+              </select>
+              <div class="input-group-append">
+                <button class="btn btn-primary" style="height:31px;" disabled="true">Per Page</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  </div>
+</div>

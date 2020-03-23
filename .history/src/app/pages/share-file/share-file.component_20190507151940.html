@@ -1,0 +1,43 @@
+<app-header></app-header><!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar><!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}"><!--page-->
+  <div class="wrapper wrapper-content" id="page-container">
+
+    <div class="card card-block animated fadeIn" id="content-wrap">
+      <div class="row">
+        <div class="col-md-12" style="max-width: 98%;margin: auto;">
+          <div style="margin-top: 10px;">
+            <h5 class="card-title">เอกสารที่ใช้ร่วมกัน<span id="department-name">&nbsp;({{departmentName}})</span></h5>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+                <button type="button" class="btn btn-sm btn-info" style="width: 120px;margin-right: 26px;"
+                  (click)="activeDepartment()">สมาชิก</button>
+                <button type="button" class="btn btn-sm btn-info" style="margin-right: 26px;width: 120px;"
+                  (click)="activeShareFile()">เอกสารที่ใช้ร่วมกัน</button>
+              </div>
+            </div>
+          </div>
+          <br>
+
+          <!--สมาชิก component-->
+          <div *ngIf="isActiveDepartment">
+            <app-member></app-member>         
+          </div>
+
+          <!--ไฟล์ที่ใช้ร่วมกัน component-->
+          <div *ngIf="isActiveShareFile">
+            <app-share-documents></app-share-documents>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</section>
+<!--end page-->

@@ -1,0 +1,96 @@
+$topnav-background-color: #192f53;
+:host {
+    .navbar {
+        background-color: $topnav-background-color;
+        height: 81px;
+        font-size: 14px;
+        .navbar-brand {
+            color: #fff;
+        }
+        .nav-item > a {
+            color: #999;
+            &:hover {
+                color: #ff8c00;
+            }
+        }
+    }
+    .messages {
+        width: 300px;
+        .media {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 10px;
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+        .media-body {
+            h5 {
+                font-size: 13px;
+                font-weight: 600;
+            }
+            .small {
+                margin: 0;
+            }
+            .last {
+                font-size: 12px;
+                margin: 0;
+            }
+        }
+    }
+}
+
+.avatar-wrap {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translate(0, -50%);
+    padding: 15px 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    width: 240px;
+    height: auto;
+    min-height: 50px;
+    //@include transition(all .4s);
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        overflow: hidden;
+        //@include transition(all .4s);
+        img {
+            display: block;
+            width: 100%;
+        }
+    }
+    .user-info-wrap {
+        padding: 2px 14px;
+        width: 170px;
+        height: auto;
+        //@include transition(all .4s);
+    }
+    .user-name,
+    .user-post {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis
+    }
+    .user-name {
+        //color: $sidebar-fonts-color;
+        //font-size: $lg-text;
+        color: #fff;
+        font-size: 12px;
+    }
+    .user-post {
+        color: #ff8c00;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.cursor-pointer:hover {
+    color: aqua;
+}

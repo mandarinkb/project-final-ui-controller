@@ -1,0 +1,76 @@
+<app-header></app-header><!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar><!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}"><!--page-->
+  <div class="wrapper wrapper-content">
+
+
+    <div class="card card-block animated fadeIn">
+      <div class="row">
+        <div class="col-md-12" style="max-width: 98%;margin: auto;">
+          <label class="control-label col-md-12" style="margin-left:-15px">Share File
+          </label>
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+                <button type="button" class="btn btn-sm btn-info" style="width: 120px;margin-right: 38px;">สมาชิก</button>
+                <button type="button" class="btn btn-sm btn-info"
+                  style="margin-right: 26px;width: 120px;">เอกสารที่ใช้ร่วมกัน</button>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="row">
+              <div class="col-md-4">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>ชื่อ นามสกุล</th>
+                        <th>สถานะ</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>ธงชัย เที่ยงธรรม</td>
+                        <td>Admin</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+              <div class="col-md-8">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>วัน-เวลา</th>
+                        <th>ชื่อ นามสกุล</th>
+                        <th>เหตุการณ์</th>
+                        <th>ประเภท</th>
+                        <th>รายละเอียด</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>2019-04-28</td>
+                        <td>ธงชัย เที่ยงธรรม</td>
+                        <td>อ่าน</td>
+                        <td>ไฟล์</td>
+                        <td>เอกสาร.pdf</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+
+  
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+  <div class="footer">
+    <div>
+      <!--<strong>Copyright</strong> -->Document Management &copy; 2019
+    </div>
+  </div>
+</section><!--end page-->

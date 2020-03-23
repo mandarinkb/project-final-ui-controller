@@ -1,0 +1,271 @@
+<app-header></app-header><!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar><!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}"><!--page-->
+  <div class="wrapper wrapper-content" id="page-container">
+
+    <div class="card card-block animated fadeIn" id="content-wrap">
+      <div class="row">
+        <div class="col-md-12" style="max-width: 98%;margin: auto;">
+          <div style="margin-top: 10px;">
+            <h5 class="card-title">Share File <span style="font-size: 16px;color: #495057;">&nbsp;({{departmentName}})</span></h5>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+                <button type="button" class="btn btn-sm btn-info" style="width: 120px;margin-right: 38px;"
+                  (click)="activeDepartment()">สมาชิก</button>
+                <button type="button" class="btn btn-sm btn-info" style="margin-right: 26px;width: 120px;"
+                  (click)="activeShareFile()">เอกสารที่ใช้ร่วมกัน</button>
+              </div>
+            </div>
+          </div>
+          <br>
+
+          <div *ngIf="isActiveDepartment">
+            <app-member></app-member>         
+          </div>
+
+          <!--สมาชิก component-->
+          <!--<div *ngIf="isActiveDepartment">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card card-block animated fadeIn">
+                  <div class="card-body">
+                    <h5 class="card-title">สมาชิก</h5>
+                    <table class="table table-bordered table-sm">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>ชื่อ-นามสกุล</th>
+                          <th>สถานะ</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let item of serviceShareFileMember.listMemberDepartment | paginate: { itemsPerPage: 5, currentPage: pgDepartmentMember }">
+                          <td>{{ item.NAME }}</td>
+                          <td>{{ item.ROLE }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div style="margin-left: -49px;">
+                          <pagination-controls (pageChange)="pgDepartmentMember = $event"></pagination-controls>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="card card-block animated fadeIn">
+                  <div class="card-body">
+                    <h5 class="card-title">กิจกรรมของสมาชิก</h5>
+                    <table class="table table-bordered table-sm">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>วัน-เวลา</th>
+                          <th>ชื่อ-นามสกุล</th>
+                          <th>เหตุการณ์</th>
+                          <th>ประเภท</th>
+                          <th>รายละเอียด</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of serviceShareFileMember.listDepartmentActivity | paginate: {id: 'departmentActivity', itemsPerPage: perPageDepartmentActivity, currentPage: pgDepartmentActivity }">
+                          <td>{{ item.DATE_TIME }}</td>
+                          <td>{{ item.NAME }}</td>
+                          <td>{{ item.EVENT }}</td>
+                          <td>{{ item.TYPE }}</td>
+                          <td>{{ item.DETAIL }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div style="margin-left:-49px;">
+                          <pagination-controls id="departmentActivity" (pageChange)="pgDepartmentActivity = $event"></pagination-controls>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group input-group-sm" style="width:146px;float:right;">
+                          <select class="form-control" (change)="selectOption($event.target.value)"
+                            [(ngModel)]="perPageDepartmentActivity">
+                            <option [value]="5">5</option>
+                            <option [value]="10">10</option>
+                            <option [value]="20">20</option>
+                            <option [value]="50">50</option>
+                          </select>
+                          <div class="input-group-append">
+                            <button class="btn btn-primary" style="height:31px;" disabled="true">Per Page</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!--จบสมาชิก component-->
+
+          <!--main folder หลอด upload file-->
+          <ng-template #mainFolderUploadFileContent let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title">อัพโหลดไฟล์</h4>
+              <button id="closeModal" type="button" class="close" aria-label="Close"
+                (click)="modal.dismiss('Cross click'); clearUploadButton();">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <div *ngIf="currentFileUpload" class="progress" style="width: 437px;margin-left: 12px;">
+                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                  attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100"
+                  [ngStyle]="{width:progress.percentage+'%'}">
+                  <!--{{progress.percentage}}%-->
+                </div>
+              </div>
+              <div class="form-group" style="margin: 0 auto;">
+                <div style="margin-left:13px; margin-top:7px;">
+                  <label class="btn btn-default">
+                    <input type="file" (change)="selectFile($event)" multiple>
+                  </label>
+                  <button id="btn-upload" class="btn btn-success" [disabled]="uploadButton"
+                    (click)="uploadFileMainFolder()">อัพโหลด</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+            </div>
+          </ng-template>
+          <!--end main folder หลอด upload file-->
+
+          <!--sub folder หลอด upload file-->
+          <ng-template #subFolderUploadFileContent let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title">อัพโหลดไฟล์</h4>
+              <button id="closeModalSubFolder" type="button" class="close" aria-label="Close"
+                (click)="modal.dismiss('Cross click') ; clearUploadButton();">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <div *ngIf="currentFileUpload" class="progress" style="width: 437px;margin-left: 12px;">
+                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                  attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100"
+                  [ngStyle]="{width:progress.percentage+'%'}">
+                  <!--{{progress.percentage}}%-->
+                </div>
+              </div>
+              <div class="form-group" style="margin: 0 auto;">
+                <div style="margin-left:13px; margin-top:7px;">
+                  <label class="btn btn-default">
+                    <input type="file" (change)="selectFile($event)" multiple>
+                  </label>
+                  <button id="btn-upload" class="btn btn-success" [disabled]="uploadButton"
+                    (click)="uploadFileSubFolder()">อัพโหลด</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+            </div>
+          </ng-template>
+          <!--end sub folder หลอด upload file-->
+
+          <!--Main Folder Modal-->
+          <ng-template #mainFolderContent let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title">สร้างโฟลเดอร์</h4>
+              <button type="button" class="close" aria-label="Close"
+                (click)="modal.dismiss('Cross click'); resetForm(); clearMainFolderValue() ">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form #form="ngForm" autocomplete="off">
+              <div class="modal-body">
+                <input type="hidden" name="FOLDER_ID" #FOLDER_ID="ngModel"
+                  [(ngModel)]="serviceShareFileMember.formData.FOLDER_ID" />
+                <div class="form-group">
+                  <label>ชื่อโฟลเดอร์</label>
+                  <input name="FOLDER_NAME" #FOLDER_NAME="ngModel"
+                    [(ngModel)]="serviceShareFileMember.formData.FOLDER_NAME" class="form-control" required />
+                  <div class="validation-error" *ngIf="FOLDER_NAME.invalid && FOLDER_NAME.touched">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="form-group" style="margin: 0 auto;">
+                  <button type="submit" [disabled]="form.invalid" class="btn btn-sm btn-primary" style="width:80px"
+                    (click)="onSubmit(form); modal.close('Close click')">
+                    บันทึก</button>&nbsp;&nbsp;
+                  <button type="button" class="btn btn-sm btn-default"
+                    (click)="modal.close('Close click'); resetForm(); clearMainFolderValue()" style="width:80px">
+                    ยกเลิก
+                  </button>
+                </div>
+              </div>
+            </form>
+          </ng-template>
+          <!--End Main Folder Modal-->
+
+          <!--Sub Folder Modal-->
+          <ng-template #subFolderContent let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title">สร้างโฟลเดอร์</h4>
+              <button type="button" class="close" aria-label="Close"
+                (click)="modal.dismiss('Cross click'); resetForm(); clearSubFolderValue()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form #formSubFolderData="ngForm" autocomplete="off">
+              <div class="modal-body">
+                <input type="hidden" name="FOLDER_ID" #FOLDER_ID="ngModel"
+                  [(ngModel)]="serviceShareFileMember.formSubFolder.FOLDER_ID" />
+                <input type="hidden" name="SUB_FOLDER_ID" [(ngModel)]="valueMainFolderId" />
+
+                <div class="form-group">
+                  <label>ชื่อโฟลเดอร์</label>
+                  <input name="FOLDER_NAME" #FOLDER_NAME="ngModel"
+                    [(ngModel)]="serviceShareFileMember.formSubFolder.FOLDER_NAME" class="form-control" required />
+                  <div class="validation-error" *ngIf="FOLDER_NAME.invalid && FOLDER_NAME.touched">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="form-group" style="margin: 0 auto;">
+                  <button type="submit" [disabled]="formSubFolderData.invalid" class="btn btn-sm btn-primary"
+                    style="width:80px" (click)="onSubmitSubfolder(formSubFolderData); modal.close('Close click')">
+                    บันทึก</button>&nbsp;&nbsp;
+                  <button type="button" class="btn btn-sm btn-default"
+                    (click)="modal.close('Close click'); resetForm(); clearSubFolderValue()" style="width:80px">
+                    ยกเลิก
+                  </button>
+                </div>
+              </div>
+            </form>
+          </ng-template>
+          <!--End Sub Folder Modal-->
+
+
+          <!--ไฟล์ที่ใช้ร่วมกัน component-->
+          <div *ngIf="isActiveShareFile">
+            <app-share-documents></app-share-documents>
+          </div>
+          <!--ไฟล์ที่ใช้ร่วมกัน component-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</section>
+<!--end page-->

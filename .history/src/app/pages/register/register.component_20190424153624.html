@@ -1,0 +1,61 @@
+<section class="material-half-bg">
+    <div class="cover"></div>
+</section>
+<section class="login-content">
+    <div class="logo">
+        <h1>MembeR</h1>
+    </div>
+    <div class="login-box">
+        <form class="login-form"  #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+            <h3 class="login-head">
+                <i class="fa fa-lg fa-fw fa-user-plus"></i>
+                ลงทะเบียน
+            </h3>
+            <div class="form-group">
+                <label class="control-label">ชื่อ</label><span style="color: red">&nbsp; *</span>
+                <input class="form-control"  type="text"  name="NAME" #NAME="ngModel" [(ngModel)]="service.formRegister.NAME" class="form-control" required>
+                <div class="validation-error" *ngIf="NAME.invalid && NAME.touched">กรุณากรอกข้อมูล</div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">นามสกุล</label><span style="color: red">&nbsp; *</span>
+                <input class="form-control" type="text"  name="SURNAME" #SURNAME="ngModel" [(ngModel)]="service.formRegister.SURNAME" class="form-control" required>
+                <div class="validation-error" *ngIf="SURNAME.invalid && SURNAME.touched">กรุณากรอกข้อมูล</div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">หน่วยงาน</label><span style="color: red">&nbsp; *</span>
+                <select class="form-control" [(ngModel)]="service.formRegister.DEPARTMENT_ID" #DEPARTMENT_ID="ngModel" name="DEPARTMENT_ID" required><!--[ngModelOptions]="{standalone:true}" -->
+                    <option value=""></option>
+                    <option *ngFor="let item of department.listDepartment" [ngValue]="item.DEPARTMENT_ID">{{item.DEPARTMENT_NAME}}</option>
+                </select>
+                <div class="validation-error" *ngIf="DEPARTMENT_ID.invalid && DEPARTMENT_ID.touched">กรุณากรอกข้อมูล</div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">อีเมล</label><span style="color: red">&nbsp; *</span>
+                <input class="form-control" type="text"  name="EMAIL" #EMAIL="ngModel" [(ngModel)]="service.formRegister.EMAIL" class="form-control" required>
+                <div class="validation-error" *ngIf="EMAIL.invalid && EMAIL.touched">กรุณากรอกข้อมูล</div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">รหัสผ่าน</label><span style="color: red">&nbsp; *</span>
+                <input class="form-control" type="password"  name="PASSWORD" #PASSWORD="ngModel" [(ngModel)]="service.formRegister.PASSWORD" class="form-control" required>
+                <div class="validation-error" *ngIf="PASSWORD.invalid && PASSWORD.touched">กรุณากรอกข้อมูล</div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">ยืนยันรหัสผ่าน</label><span style="color: red">&nbsp; *</span>
+                <input class="form-control" type="password" appConfirmEqualValidator="PASSWORD"  name="CONFIRM_PASSWORD" #CONFIRM_PASSWORD="ngModel" [(ngModel)]="service.formRegister.CONFIRM_PASSWORD" class="form-control" required >
+                <div class="validation-error" *ngIf="CONFIRM_PASSWORD.errors?.required && CONFIRM_PASSWORD.touched">กรุณากรอกข้อมูล</div>
+                <div class="validation-error" *ngIf="CONFIRM_PASSWORD.errors?.notEqual && !CONFIRM_PASSWORD.errors?.required" >ยืนยันรหัสผ่าน ไม่ตรงกับรหัสผ่าน</div>
+            </div>
+            <div class="form-group btn-container">
+                <button class="btn btn-primary btn-block" type="submit" [disabled]="form.invalid">
+                    <i class="fa fa-sign-in fa-lg fa-fw"></i>
+                    ลงทะเบียน
+                </button>
+
+                <div class="mt-3 text-center semibold-text">
+                    <a [routerLink]="['/login']">เข้าสู่ระบบ</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

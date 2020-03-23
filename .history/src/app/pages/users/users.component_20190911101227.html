@@ -1,0 +1,27 @@
+<app-header></app-header>
+<!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
+<!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+  <!--page-->
+  <div class="wrapper wrapper-content" id="page-container">
+    
+    <div class="card card-block animated fadeIn" id="content-wrap">
+      <div class="row">
+        <div class="col-md-12" style="max-width: 98%;margin: auto;margin-top: 10px;">
+          <button type="button" class="btn btn-mini btn-success btn-with-icon">
+            <!--(click)=""-->
+            <i class="fa fa-plus fa-fw"></i>เพิ่ม
+          </button>
+
+          <p>
+            users works!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</section>
+
+

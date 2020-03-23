@@ -1,0 +1,12 @@
+/*table tr:hover{
+    background-color: #f6f6f7; 
+}*/
+table {
+    width: 100%;
+  }
+  ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb{
+    background-color: darkcyan !important;
+  } 
+  ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar{
+    background-color: darkcyan !important;
+  } 

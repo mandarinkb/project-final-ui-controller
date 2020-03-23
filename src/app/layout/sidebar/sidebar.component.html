@@ -1,0 +1,44 @@
+
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <div class="list-group">
+    <!--<a [routerLink]="['/dashboard']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>แดชบอร์ด</span>
+        </a>
+        <a  [routerLink]="['/my-file']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-file-o"></i>&nbsp;
+            <span>เอกสารของฉัน</span>
+        </a>-->
+        <a  [routerLink]="['/control']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
+            <i class="fa fa-fw fa-cog"></i>&nbsp;
+            <span>เว็บคอนโทรล</span>
+        </a>
+        <a  [routerLink]="['/schedule']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
+            <i class="fa fa-fw fa-clock-o"></i>&nbsp;
+            <span>ตั้งเวลาทำงาน</span>
+        </a>
+        <a  [routerLink]="['/users']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
+            <i class="fa fa-fw fa-users"></i>&nbsp;
+            <span>จัดการสมาชิก</span>
+        </a>
+       <!-- <a  [routerLink]="['/setting-profile']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
+            <i class="fa fa-fw fa-fw fa-cogs"></i>&nbsp;
+            <span>ข้อมูลส่วนตัว</span>
+        </a>
+
+        <a  [routerLink]="['/member-management']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
+            <i class="fa fa-fw fa-fw fa-users"></i>&nbsp;
+            <span>จัดการสมาชิก</span>
+        </a>
+
+        <a  [routerLink]="['/department-management']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
+            <i class="fa fa-fw fa-fw fa-address-card-o"></i>&nbsp;
+            <span>จัดการหน่วยงาน</span>
+        </a>-->
+
+   </div>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
+    </div>
+</nav>
+

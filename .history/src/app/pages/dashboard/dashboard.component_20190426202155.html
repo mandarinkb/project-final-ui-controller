@@ -1,0 +1,27 @@
+<app-header></app-header><!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar><!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}"><!--page-->
+
+
+<p>
+  dashboard works!
+</p>
+
+<div class="card card-block animated fadeIn">
+  <div class="row">
+    <div class="col-md-12" style="max-width: 98%;margin: auto;">
+      <label class="control-label col-md-12" style="margin-left:-15px">My File
+      </label>
+      <p>
+        dashboard works!
+      </p>
+
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
+</div>
+
+</section><!--end page-->

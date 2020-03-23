@@ -1,0 +1,152 @@
+<app-header></app-header><!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar><!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+  <!--page-->
+  <div class="wrapper wrapper-content" id="page-container">
+    
+    <div class="card card-block animated fadeIn" id="content-wrap"> 
+      <div class="row">
+        <div class="col-md-12" style="max-width: 98%;margin: auto;margin-top: 10px;">
+          <button type="button" class="btn btn-mini btn-success btn-with-icon" (click)="openBackDropCustomClass(addContent)">
+            <!--(click)=""-->
+            <i class="fa fa-plus fa-fw"></i>เพิ่ม
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12" style="max-width: 98%;margin: auto;">
+          <div class="mat-elevation-z8" style="margin-top: 12px">
+            <table mat-table [dataSource]="dataSource" style="width: 100%">
+              <ng-container matColumnDef="link">
+                <th mat-header-cell *matHeaderCellDef> Link </th>
+                <td mat-cell *matCellDef="let element"> {{element.link}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="season">
+                <th mat-header-cell *matHeaderCellDef> Season </th>
+                <td mat-cell *matCellDef="let element"> {{element.season}} </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+      
+                <td mat-cell *matCellDef="let element">
+                  <mat-slide-toggle (change)="onChanged($event,element.web_id)" [checked]="element.web_status">
+                  </mat-slide-toggle>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element">
+                  <button type="button" class="btn btn-mini btn-primary btn-with-icon"
+                  ><!--(click)=""-->
+                  <i class="fa fa-pencil-square-o fa-fw"></i>แก้ไข
+                </button>
+                <button type="button" class="btn btn-mini btn-danger btn-with-icon" (click)="onDelete()"><!---->
+                <i class="fa fa-trash fa-fw"></i>ลบ
+                </button>
+                </td>
+
+                <td mat-cell *matCellDef="let element">
+
+                </td>
+              </ng-container>              
+      
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr><!-- let i = index-->
+            </table>     
+            <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Sub Folder Modal-->
+<ng-template #addContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">สร้างโฟลเดอร์</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click');">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+  </div>
+<!--
+  <form #formSubFolderData="ngForm" autocomplete="off">
+    <div class="modal-body">
+      <input
+        type="hidden"
+        name="FOLDER_ID"
+        #FOLDER_ID="ngModel"
+        [(ngModel)]="service.formSubFolder.FOLDER_ID"
+      />
+      <input
+        type="hidden"
+        name="SUB_FOLDER_ID"
+        [(ngModel)]="valueMainFolderId"
+      />
+
+      <div class="form-group">
+        <label>ชื่อโฟลเดอร์</label>
+        <input
+          name="FOLDER_NAME"
+          #FOLDER_NAME="ngModel"
+          [(ngModel)]="service.formSubFolder.FOLDER_NAME"
+          class="form-control"
+          required
+        />
+        <div
+          class="validation-error"
+          *ngIf="
+          FOLDER_NAME.invalid && FOLDER_NAME.touched
+          "
+        >
+          This field is required.
+        </div>
+      </div>
+    </div>
+-->
+    <div class="modal-footer">
+
+<!--   
+      <div class="form-group" style="margin: 0 auto;">
+        <button
+          type="submit"
+          [disabled]="formSubFolderData.invalid"
+          class="btn btn-sm btn-primary"
+          style="width:80px"
+          (click)="modal.close('Close click')">
+          บันทึก</button
+        >&nbsp;&nbsp;
+        <button
+          type="button"
+          class="btn btn-sm btn-default"
+          (click)="modal.close('Close click');"
+          style="width:80px"
+        >
+          ยกเลิก
+        </button>
+      </div>
+--> 
+    </div>
+  <!--</form>-->
+</ng-template>
+<!--End Sub Folder Modal-->
+
+  <app-footer></app-footer>
+</section>
+<!--end page-->

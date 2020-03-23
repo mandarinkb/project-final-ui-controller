@@ -1,0 +1,19 @@
+<app-header></app-header><!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar><!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}"><!--page-->
+  <div class="wrapper wrapper-content" id="page-container">
+
+    <div class="card card-block animated fadeIn" id="content-wrap">
+      <div class="row">
+        <div class="col-md-12" style="max-width: 98%;margin: auto;">
+
+            <app-member></app-member>         
+      
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</section>
+<!--end page-->
