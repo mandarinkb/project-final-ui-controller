@@ -1,6 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
+/*add fonts */
+@font-face {
+  font-family: prompt-regular;
+  src: url(assets/fonts/Prompt-Regular.ttf) format("opentype");
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'prompt-regular', 'arial', sans-serif;
+}
+/*end add fonts */
+
 .btn-primary{
     border-radius: 1.5px;
     background: linear-gradient(to top right, #007bff, #a7d3f9);
@@ -317,3 +330,4 @@ input:disabled{
 button:disabled{
   cursor:not-allowed
 }
+

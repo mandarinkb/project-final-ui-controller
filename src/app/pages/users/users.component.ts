@@ -15,10 +15,8 @@ import { Response } from 'src/app/shared/response.model';
 })
 export class UsersComponent implements OnInit {
   collapedSideBar: boolean;
-  data: any = [
-    {userName: 'man', role: 'admin' }];
 
-  displayedColumns: string[] = ['userName', 'role', 'action'];
+  displayedColumns: string[] = ['username', 'role', 'action'];
   dataSource = new MatTableDataSource<Users>();
   @ViewChild('paginator') paginator: MatPaginator;
 
@@ -42,7 +40,7 @@ export class UsersComponent implements OnInit {
     }
     // clear form
     this.service.formUsersData = {
-      id: null,
+      user_id: null,
       username: '',
       password: '',
       role: ''
@@ -61,38 +59,35 @@ export class UsersComponent implements OnInit {
 
   saveUsers(form: NgForm) {
     this.service.saveUsers(form).subscribe((res: Response) => {
-      if (res.status === 200) {
-        this.toastr.success(res.message, 'Create user success.');
-      }
+      this.toastr.success('', 'Create user success.');
       this.readUsers();
     }, err => {
-      this.toastr.error('มีชื่อผู้ใช้นี้แล้วในระบบ', 'User duplicate.');
+
     });
   }
 
   deleteUsers(id) {
     this.service.deleteUsers(id).subscribe((res: Response) => {
-      if (res.status === 200) {
-        this.toastr.success(res.message, 'Delete user success.');
-      }
+      this.toastr.success('', 'Delete user success.');
       this.readUsers();
     }, err => {
+
     });
   }
   readUsersById(id) {
     this.service.readUsersById(id).subscribe((res: Users) => {
       this.service.formUsersData = res;
     }, err => {
+
     });
   }
 
   updateUsers(id , form: NgForm) {
     this.service.updateUsers(id, form).subscribe((res: Response) => {
-      if (res.status === 200) {
-        this.toastr.success(res.message, 'Update user success.');
-      }
+      this.toastr.success('', 'Update user success.');
       this.readUsers();
     }, err => {
+
     });
   }
   onDelete(id) {

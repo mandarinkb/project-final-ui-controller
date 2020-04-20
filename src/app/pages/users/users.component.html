@@ -19,8 +19,8 @@
           <div class="col-md-12" style="max-width: 98%;margin: auto;">
             <div class="mat-elevation-z8" style="margin-top: 12px">
               <table mat-table [dataSource]="dataSource" style="width: 100%">
-                <ng-container matColumnDef="userName">
-                  <th mat-header-cell *matHeaderCellDef> User Name </th>
+                <ng-container matColumnDef="username">
+                  <th mat-header-cell *matHeaderCellDef> Username </th>
                   <td mat-cell *matCellDef="let element"> {{element.username}} </td>
                 </ng-container>
   
@@ -32,16 +32,12 @@
                 <ng-container matColumnDef="action">
                   <th mat-header-cell *matHeaderCellDef> Action </th>
                   <td mat-cell *matCellDef="let element">
-                    <button type="button" class="btn btn-mini btn-primary btn-with-icon" (click)="openWindowCustomClass(editContent);readUsersById(element.id)">
+                    <button type="button" class="btn btn-mini btn-primary btn-with-icon" (click)="openWindowCustomClass(editContent);readUsersById(element.user_id)">
                     <i class="fa fa-pencil-square-o fa-fw"></i>แก้ไข
                   </button>
-                  <button type="button" class="btn btn-mini btn-danger btn-with-icon" (click)="onDelete(element.id)"><!---->
+                  <button type="button" class="btn btn-mini btn-danger btn-with-icon" (click)="onDelete(element.user_id)"><!---->
                   <i class="fa fa-trash fa-fw"></i>ลบ
                   </button>
-                  </td>
-  
-                  <td mat-cell *matCellDef="let element">
-  
                   </td>
                 </ng-container>              
         
@@ -73,8 +69,8 @@
     <form #form="ngForm" autocomplete="off">
       <div class="modal-body">
         <div class="form-group">
-          <input type="hidden" name="id" #schedule_id="ngModel"
-            [(ngModel)]="service.formUsersData.id" />
+          <input type="hidden" name="id" #id="ngModel"
+            [(ngModel)]="service.formUsersData.user_id" />
         </div>
         <div class="form-group">
           <label>Username</label>
@@ -142,8 +138,8 @@
     <form #form="ngForm" autocomplete="off">
       <div class="modal-body">
         <div class="form-group">
-          <input type="hidden" name="id" #schedule_id="ngModel"
-            [(ngModel)]="service.formUsersData.id" />
+          <input type="hidden" name="id" #id="ngModel"
+            [(ngModel)]="service.formUsersData.user_id" />
         </div>
         <div class="form-group">
           <label>Username</label>
@@ -153,6 +149,16 @@
             กรุณากรอกข้อมูล
           </div>
         </div>
+
+        <div class="form-group">
+          <!--<label>Password</label>-->
+          <input type="hidden" name="password" #password="ngModel" [(ngModel)]="service.formUsersData.password"
+            class="form-control" required />
+          <!--<div class="validation-error" *ngIf="password.invalid && password.touched">
+            กรุณากรอกข้อมูล
+          </div>-->
+        </div>
+
         <div class="form-group">
           <label>Role</label>
           <select class="form-control" [(ngModel)]="service.formUsersData.role" #role="ngModel" name="role" required>
