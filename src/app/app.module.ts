@@ -12,12 +12,10 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { MaterialModule } from './material/material.module';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
 import { MainComponent } from './layout/main/main.component';
 import { ConfirmPasswordValidatorService } from './shared/confirm-password-validator.service';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { ChartsModule } from 'ng2-charts';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
@@ -38,10 +36,8 @@ import { UsersComponent } from './pages/users/users.component';
     SidebarComponent,
     ConfirmDialogComponent,
     LoginComponent,
-    RegisterComponent,
     MainComponent,
     ConfirmPasswordValidatorService,
-    ResetPasswordComponent,
     FooterComponent,
     ScheduleComponent,
     ControlComponent,

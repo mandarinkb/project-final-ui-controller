@@ -40,7 +40,7 @@ export class UsersComponent implements OnInit {
     }
     // clear form
     this.service.formUsersData = {
-      user_id: null,
+      userId: null,
       username: '',
       password: '',
       role: ''

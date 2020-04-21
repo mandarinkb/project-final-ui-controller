@@ -1,8 +1,7 @@
 export class Schedule {
-    schedule_id: number;
-    schedule_name: string;
-    cron_expression: string;
-    function_name: string;
-    project_name: string;
-    detail: string;
+    scheduleId: number;
+    scheduleName: string;
+    cronExpression: string;
+    methodName: string;
+    projectName: string;
 }

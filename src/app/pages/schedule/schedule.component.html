@@ -20,34 +20,29 @@
           <div class="mat-elevation-z8" style="margin-top: 12px">
             <table mat-table [dataSource]="dataSource" style="width: 100%">
 
-              <ng-container matColumnDef="schedule name">
+              <ng-container matColumnDef="schedule_name">
                 <th mat-header-cell *matHeaderCellDef> Schedule name </th>
-                <td mat-cell *matCellDef="let element"> {{element.schedule_name}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.scheduleName}} </td>
               </ng-container>
 
-              <ng-container matColumnDef="cron expression">
+              <ng-container matColumnDef="cron_expression">
                 <th mat-header-cell *matHeaderCellDef> Cron expression </th>
-                <td mat-cell *matCellDef="let element"> {{element.cron_expression}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.cronExpression}} </td>
               </ng-container>
 
-              <ng-container matColumnDef="function name">
-                <th mat-header-cell *matHeaderCellDef> Function name</th>
-                <td mat-cell *matCellDef="let element"> {{element.function_name}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="detail">
-                <th mat-header-cell *matHeaderCellDef style="width: 31%;"> Detail</th>
-                <td mat-cell *matCellDef="let element"> {{element.detail}} </td>
+              <ng-container matColumnDef="project_name">
+                <th mat-header-cell *matHeaderCellDef> Project name</th>
+                <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
               </ng-container>
 
               <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element">
                   <button type="button" class="btn btn-mini btn-primary btn-with-icon"
-                  (click)="openWindowCustomClass(editContent);readScheduleById(element.schedule_id);">
+                  (click)="openWindowCustomClass(editContent);readScheduleById(element.scheduleId);">
                   <i class="fa fa-pencil-square-o fa-fw"></i>แก้ไข
                 </button>
-                <button type="button" class="btn btn-mini btn-danger btn-with-icon" (click)="onDelete(element.schedule_id)"><!--(click)=""-->
+                <button type="button" class="btn btn-mini btn-danger btn-with-icon" (click)="onDelete(element.scheduleId)"><!--(click)=""-->
                 <i class="fa fa-trash fa-fw"></i>ลบ
                 </button>
                 </td>
@@ -81,22 +76,22 @@
   <form #form="ngForm" autocomplete="off">
     <div class="modal-body">
       <div class="form-group">
-        <input type="hidden" name="schedule_id" #schedule_id="ngModel"
-          [(ngModel)]="service.formScheduleData.schedule_id" />
+        <input type="hidden" name="scheduleId" #scheduleId="ngModel"
+          [(ngModel)]="service.formScheduleData.scheduleId" />
       </div>
       <div class="form-group">
         <label>Schedule name</label>
-        <input name="schedule_name" #schedule_name="ngModel" [(ngModel)]="service.formScheduleData.schedule_name"
+        <input name="scheduleName" #scheduleName="ngModel" [(ngModel)]="service.formScheduleData.scheduleName"
           class="form-control" required />
-        <div class="validation-error" *ngIf="schedule_name.invalid && schedule_name.touched">
+        <div class="validation-error" *ngIf="scheduleName.invalid && scheduleName.touched">
           กรุณากรอกข้อมูล
         </div>
       </div>
       <div class="form-group">
         <label>Cron expression</label>
-        <input name="cron_expression" #cron_expression="ngModel" [(ngModel)]="service.formScheduleData.cron_expression"
+        <input name="cronExpression" #cronExpression="ngModel" [(ngModel)]="service.formScheduleData.cronExpression"
           class="form-control" required />
-        <div class="validation-error" *ngIf="cron_expression.invalid && cron_expression.touched">
+        <div class="validation-error" *ngIf="cronExpression.invalid && cronExpression.touched">
           กรุณากรอกข้อมูล
         </div>
         <div style="font-size: 13px;"><label>generate cron expression <span><a href="http://www.cronmaker.com/"
@@ -110,27 +105,19 @@
       -->
       
       <div class="form-group">
-        <label>Function name</label>
-        <input name="function_name" #function_name="ngModel" [(ngModel)]="service.formScheduleData.function_name"
+        <label>Method name</label>
+        <input name="methodName" #methodName="ngModel" [(ngModel)]="service.formScheduleData.methodName"
           class="form-control" required />
-        <div class="validation-error" *ngIf="function_name.invalid && function_name.touched">
+        <div class="validation-error" *ngIf="methodName.invalid && methodName.touched">
           กรุณากรอกข้อมูล
         </div>
       </div>
       
       <div class="form-group">
         <label>Project name</label>
-        <input name="project_name" #project_name="ngModel" [(ngModel)]="service.formScheduleData.project_name"
+        <input name="projectName" #projectName="ngModel" [(ngModel)]="service.formScheduleData.projectName"
           class="form-control" required />
-        <div class="validation-error" *ngIf="project_name.invalid && project_name.touched">
-          กรุณากรอกข้อมูล
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label>Detail</label>
-        <input name="detail" #detail="ngModel" [(ngModel)]="service.formScheduleData.detail" class="form-control" required />
-        <div class="validation-error" *ngIf="detail.invalid && detail.touched">
+        <div class="validation-error" *ngIf="projectName.invalid && projectName.touched">
           กรุณากรอกข้อมูล
         </div>
       </div>
@@ -174,50 +161,41 @@
     <form #form="ngForm" autocomplete="off">
       <div class="modal-body">
         <div class="form-group">
-          <input type="hidden" name="schedule_id" #schedule_id="ngModel"
-            [(ngModel)]="service.formScheduleData.schedule_id" />
+          <input type="hidden" name="scheduleId" #scheduleId="ngModel"
+            [(ngModel)]="service.formScheduleData.scheduleId" />
         </div>
         <div class="form-group">
           <label>Schedule name</label>
-          <input name="schedule_name" #schedule_name="ngModel" [(ngModel)]="service.formScheduleData.schedule_name"
+          <input name="scheduleName" #scheduleName="ngModel" [(ngModel)]="service.formScheduleData.scheduleName"
             class="form-control" required />
-          <div class="validation-error" *ngIf="schedule_name.invalid && schedule_name.touched">
+          <div class="validation-error" *ngIf="scheduleName.invalid && scheduleName.touched">
             กรุณากรอกข้อมูล
           </div>
         </div>
         <div class="form-group">
           <label>Cron expression</label>
-          <input name="cron_expression" #cron_expression="ngModel" [(ngModel)]="service.formScheduleData.cron_expression"
+          <input name="cronExpression" #cronExpression="ngModel" [(ngModel)]="service.formScheduleData.cronExpression"
             class="form-control" required />         
-          <div class="validation-error" *ngIf="cron_expression.invalid && cron_expression.touched">
+          <div class="validation-error" *ngIf="cronExpression.invalid && cronExpression.touched">
             กรุณากรอกข้อมูล
           </div>
           <div style="font-size: 13px;"><label>generate cron expression <span><a href="http://www.cronmaker.com/" target="_blank">click here</a></span></label></div>
         </div>
 
         <div class="form-group">
-          <label>Function name</label>
-          <input name="function_name" #function_name="ngModel" [(ngModel)]="service.formScheduleData.function_name"
+          <label>Method name</label>
+          <input name="methodName" #methodName="ngModel" [(ngModel)]="service.formScheduleData.methodName"
             class="form-control" required />
-          <div class="validation-error" *ngIf="function_name.invalid && function_name.touched">
+          <div class="validation-error" *ngIf="methodName.invalid && methodName.touched">
             กรุณากรอกข้อมูล
           </div>
         </div>
 
         <div class="form-group">
           <label>Project name</label>
-          <input name="project_name" #project_name="ngModel" [(ngModel)]="service.formScheduleData.project_name"
+          <input name="projectName" #projectName="ngModel" [(ngModel)]="service.formScheduleData.projectName"
             class="form-control" required />
-          <div class="validation-error" *ngIf="project_name.invalid && project_name.touched">
-            กรุณากรอกข้อมูล
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Detail</label>
-          <input name="detail" #detail="ngModel" [(ngModel)]="service.formScheduleData.detail"
-            class="form-control" required />
-          <div class="validation-error" *ngIf="detail.invalid && detail.touched">
+          <div class="validation-error" *ngIf="projectName.invalid && projectName.touched">
             กรุณากรอกข้อมูล
           </div>
         </div>

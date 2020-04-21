@@ -17,7 +17,7 @@ import { DialogService } from 'src/app/shared/dialog.service';
 })
 export class ScheduleComponent implements OnInit {
   collapedSideBar: boolean;
-  displayedColumns: string[] = ['schedule name', 'cron expression', 'function name', 'detail', 'action'];
+  displayedColumns: string[] = ['schedule_name', 'cron_expression', 'project_name', 'action'];
   dataSource = new MatTableDataSource<Schedule>();
   @ViewChild('paginator') paginator: MatPaginator;
   constructor(public service: ScheduleService ,
@@ -39,12 +39,11 @@ export class ScheduleComponent implements OnInit {
     }
     // clear form
     this.service.formScheduleData = {
-      schedule_id: null,
-      schedule_name: '',
-      cron_expression: '',
-      function_name: '',
-      project_name: '',
-      detail: ''
+      scheduleId: null,
+      scheduleName: '',
+      cronExpression: '',
+      methodName: '',
+      projectName: ''
     };
   }
 
@@ -66,9 +65,7 @@ export class ScheduleComponent implements OnInit {
   }
   saveSchedule(form: NgForm) {
     this.service.saveSchedule(form).subscribe((res: Response) => {
-      if (res.status === 200) {
-        this.toastr.success(res.message, 'Save cron expression success.');
-      }
+      this.toastr.success('', 'Save cron expression success.');
       this.readSchedule();
     }, err => {
     });
@@ -76,9 +73,7 @@ export class ScheduleComponent implements OnInit {
 
   updateSchedule(id , form: NgForm) {
     this.service.updateSchedule(id, form).subscribe((res: Response) => {
-      if (res.status === 200) {
-        this.toastr.success(res.message, 'Update cron expression success.');
-      }
+      this.toastr.success('', 'Update cron expression success.');
       this.readSchedule();
     }, err => {
     });
@@ -86,26 +81,25 @@ export class ScheduleComponent implements OnInit {
 
   deleteSchedule(id) {
     this.service.deleteSchedule(id).subscribe((res: Response) => {
-      if (res.status === 200) {
-        this.toastr.success(res.message, 'Delete cron expression success.');
-      }
+      this.toastr.success('', 'Delete cron expression success.');
       this.readSchedule();
     }, err => {
     });
   }
 
   onSubmit(form: NgForm) {
-    if (form.value.schedule_id == null) {
+    if (form.value.scheduleId == null) {
       this.saveSchedule(form.value);
     } else {
-      this.updateSchedule(form.value.schedule_id , form.value);
+      this.updateSchedule(form.value.scheduleId , form.value);
       // restart app
-      if (form.value.project_name === 'web scrapping') {
+      /*if (form.value.project_name === 'web scrapping') {
         this.service.restartWebScrapping(form.value).subscribe((res) => {
         }, err => {
           console.log(err);
         });
       }
+*/
     }
 
   }

@@ -32,10 +32,10 @@
                 <ng-container matColumnDef="action">
                   <th mat-header-cell *matHeaderCellDef> Action </th>
                   <td mat-cell *matCellDef="let element">
-                    <button type="button" class="btn btn-mini btn-primary btn-with-icon" (click)="openWindowCustomClass(editContent);readUsersById(element.user_id)">
+                    <button type="button" class="btn btn-mini btn-primary btn-with-icon" (click)="openWindowCustomClass(editContent);readUsersById(element.userId)">
                     <i class="fa fa-pencil-square-o fa-fw"></i>แก้ไข
                   </button>
-                  <button type="button" class="btn btn-mini btn-danger btn-with-icon" (click)="onDelete(element.user_id)"><!---->
+                  <button type="button" class="btn btn-mini btn-danger btn-with-icon" (click)="onDelete(element.userId)"><!---->
                   <i class="fa fa-trash fa-fw"></i>ลบ
                   </button>
                   </td>
@@ -70,7 +70,7 @@
       <div class="modal-body">
         <div class="form-group">
           <input type="hidden" name="id" #id="ngModel"
-            [(ngModel)]="service.formUsersData.user_id" />
+            [(ngModel)]="service.formUsersData.userId" />
         </div>
         <div class="form-group">
           <label>Username</label>
@@ -139,7 +139,7 @@
       <div class="modal-body">
         <div class="form-group">
           <input type="hidden" name="id" #id="ngModel"
-            [(ngModel)]="service.formUsersData.user_id" />
+            [(ngModel)]="service.formUsersData.userId" />
         </div>
         <div class="form-group">
           <label>Username</label>

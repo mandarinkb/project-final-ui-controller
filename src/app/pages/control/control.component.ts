@@ -17,7 +17,7 @@ export class ControlComponent implements OnInit {
   webStatus = '1';
 
   collapedSideBar: boolean;
-  displayedColumns: string[] = ['url', 'name', 'season',  'status', 'action'];
+  displayedColumns: string[] = ['webName', 'webUrl', 'status', 'action'];
   dataSource = new MatTableDataSource<Web>();
   @ViewChild('paginator') paginator: MatPaginator;
 
@@ -40,23 +40,19 @@ export class ControlComponent implements OnInit {
     }
     // clear form
     this.service.formData = {
-      web_id: null ,
-      web_name: '' ,
-      url: '',
-      type: '',
-      type_detail: '',
-      web_status: '',
-      season: '',
-      base_url: '',
-      detail: ''
+      webId: null ,
+      webName: '' ,
+      webUrl: '',
+      webStatus: '',
+      iconUrl: ''
     };
   }
 
   onSubmit(form: NgForm) {
-    if (form.value.web_id == null) {
+    if (form.value.webId == null) {
       this.saveWeb(form.value);
     } else {
-      this.updateWeb(form.value.web_id , form.value);
+      this.updateWeb(form.value.webId , form.value);
     }
   }
 
@@ -69,18 +65,15 @@ export class ControlComponent implements OnInit {
 
   saveWeb(form: NgForm) {
     this.service.saveWeb(form).subscribe((res: Response) => {
-      if (res.status === 200) {
-        this.toastr.success(res.message, 'Save web success.');
-      }
+      this.toastr.success('', 'Save web success.');
       this.getWebController();
     }, err => {
     });
   }
   deleteWeb(id) {
     this.service.deleteWeb(id).subscribe((res: Response) => {
-      if (res.status === 200) {
-        this.toastr.success(res.message, 'Delete web success.');
-      }
+
+      this.toastr.success('', 'Delete web success.');
       this.getWebController();
     }, err => {
     });
@@ -88,9 +81,7 @@ export class ControlComponent implements OnInit {
 
   updateWeb(id , form: NgForm) {
     this.service.updateWeb(id, form).subscribe((res: Response) => {
-      if (res.status === 200) {
-        this.toastr.success(res.message, 'Update web success.');
-      }
+      this.toastr.success('', 'Update web success.');
       this.getWebController();
     }, err => {
     });
@@ -99,25 +90,23 @@ export class ControlComponent implements OnInit {
   onChanged(event, id: number ) {
     if (event.checked) { // open
       const objOpen = {
-        web_status: '1'
+        webStatus: '1'
       };
       const objOpenStr = JSON.stringify(objOpen); // create json
       this.service.updateWebStatus(id, objOpenStr).subscribe((res: Response) => {
-        if (res.status === 200) {
-          this.toastr.success(res.message, 'Update status success.');
-        }
+
+        this.toastr.success('', 'Update status success.');
+
         this.getWebController();
       }, err => {
       });
     } else {  // close
       const objClose = {
-        web_status: '0'
+        webStatus: '0'
       };
       const objCloseStr = JSON.stringify(objClose); // create json
       this.service.updateWebStatus(id, objCloseStr).subscribe((res: Response) => {
-        if (res.status === 200) {
-          this.toastr.success(res.message, 'Update status success.');
-        }
+        this.toastr.success('', 'Update status success.');
         this.getWebController();
       }, err => {
       });
