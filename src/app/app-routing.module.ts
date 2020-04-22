@@ -4,12 +4,14 @@ import { LoginComponent } from './pages/login/login.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { ControlComponent } from './pages/control/control.component';
 import { UsersComponent } from './pages/users/users.component';
+import { SwitchDatabaseComponent } from './pages/switch-database/switch-database.component';
 const routes: Routes = [
 { path: '', redirectTo: '/login', pathMatch: 'full' },
 { path : 'control', component: ControlComponent },
 { path : 'schedule', component: ScheduleComponent },
 { path : 'users', component: UsersComponent },
-{ path : 'login', component: LoginComponent }
+{ path : 'login', component: LoginComponent },
+{ path : 'switch-database', component: SwitchDatabaseComponent }
 ];
 
 @NgModule({

@@ -1,0 +1,197 @@
+<app-header></app-header><!--header-->
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar><!--sidebar-->
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+  <!--page-->
+  <div class="wrapper wrapper-content" id="page-container">
+    
+    <div class="card card-block animated fadeIn" id="content-wrap"> 
+      <div class="row">
+        <div class="col-md-12" style="max-width: 98%;margin: auto;margin-top: 10px;">
+          <button type="button" class="btn btn-mini btn-success btn-with-icon" (click)="openWindowCustomClass(addContent);resetForm();">
+            <!--(click)=""-->
+            <i class="fa fa-plus fa-fw"></i>เพิ่ม
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12" style="max-width: 98%;margin: auto;">
+          <div class="mat-elevation-z8" style="margin-top: 12px">
+            <table mat-table [dataSource]="dataSource" style="width: 100%">
+              <ng-container matColumnDef="databaseName">
+                <th mat-header-cell *matHeaderCellDef> Database name </th>
+                <td mat-cell *matCellDef="let element"> {{element.databaseName}} </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="databaseStatus">
+                <th mat-header-cell *matHeaderCellDef> Database status </th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-slide-toggle (change)="onChanged($event,element.databaseId)" [checked]="element.databaseStatus">
+                  </mat-slide-toggle>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element">
+                  <button type="button" class="btn btn-mini btn-primary btn-with-icon" (click)="openWindowCustomClass(editContent);readSwitchDatabaseById(element.databaseId)">
+                  <i class="fa fa-pencil-square-o fa-fw"></i>แก้ไข
+                </button>
+                <button type="button" class="btn btn-mini btn-danger btn-with-icon" (click)="onDelete(element.databaseId)"><!---->
+                <i class="fa fa-trash fa-fw"></i>ลบ
+                </button>
+                </td>
+              </ng-container>              
+      
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr><!-- let i = index-->
+            </table>     
+            <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+
+        </div>
+      </div>
+  </div>
+</div>
+<ng-template #addContent let-modal>
+  <div class="modal-header modal-header-color">
+    <h4 class="modal-title">เพิ่มรายการ</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click');">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form #form="ngForm" autocomplete="off">
+    <div class="modal-body">
+      <input
+        type="hidden"
+        name="databaseId"
+        #databaseId="ngModel"
+        [(ngModel)]="service.formData.databaseId"
+      />
+
+      <div class="form-group">
+        <label>Database name</label>
+        <input
+          name="databaseName"
+          #databaseName="ngModel"
+          [(ngModel)]="service.formData.databaseName"
+          class="form-control"
+          required
+        />
+        <div
+          class="validation-error"
+          *ngIf="
+          databaseName.invalid && databaseName.touched
+          "
+        >
+          กรุณากรอกข้อมูล
+        </div>
+      </div>     
+
+      <div class="form-group">
+        <input
+          type="hidden"
+          name="databaseStatus"
+          [(ngModel)]="databaseStatus"/><!--#web_status="ngModel"-->
+      </div>     
+    </div>
+
+    <div class="modal-footer modal-footer-color">   
+      <div class="form-group" style="margin: 0 auto;">
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="btn btn-sm btn-primary"
+          style="width:80px"
+          (click)="onSubmit(form); modal.close('Close click')">
+          บันทึก</button
+        >&nbsp;&nbsp;
+        <button
+          type="button"
+          class="btn btn-sm btn-default"
+          (click)="modal.close('Close click');"
+          style="width:80px"
+        >
+          ยกเลิก
+        </button>
+      </div>
+
+    </div>
+  </form>
+</ng-template>
+<ng-template #editContent let-modal>
+  <div class="modal-header modal-header-color">
+    <h4 class="modal-title">แก้ไขรายการ</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click');">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form #form="ngForm" autocomplete="off">
+    <div class="modal-body">
+      <input
+        type="hidden"
+        name="databaseId"
+        #databaseId="ngModel"
+        [(ngModel)]="service.formData.databaseId"
+      />
+
+      <div class="form-group">
+        <label>Database name</label>
+        <input
+          name="databaseName"
+          #databaseName="ngModel"
+          [(ngModel)]="service.formData.databaseName"
+          class="form-control"
+          required
+        />
+        <div
+          class="validation-error"
+          *ngIf="
+          databaseName.invalid && databaseName.touched
+          "
+        >
+          กรุณากรอกข้อมูล
+        </div>
+      </div>     
+
+      <div class="form-group">
+        <input
+          type="hidden"
+          name="databaseStatus"
+          [(ngModel)]="databaseStatus"/><!--#web_status="ngModel"-->
+      </div>     
+    </div>
+
+    <div class="modal-footer modal-footer-color">   
+      <div class="form-group" style="margin: 0 auto;">
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="btn btn-sm btn-primary"
+          style="width:80px"
+          (click)="onSubmit(form); modal.close('Close click')">
+          บันทึก</button
+        >&nbsp;&nbsp;
+        <button
+          type="button"
+          class="btn btn-sm btn-default"
+          (click)="modal.close('Close click');"
+          style="width:80px"
+        >
+          ยกเลิก
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+<app-footer></app-footer>
+</section>
+<!--end page-->

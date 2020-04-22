@@ -29,6 +29,7 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 // for Core import:
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { UsersComponent } from './pages/users/users.component';
+import { SwitchDatabaseComponent } from './pages/switch-database/switch-database.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { UsersComponent } from './pages/users/users.component';
     ScheduleComponent,
     ControlComponent,
     UsersComponent,
+    SwitchDatabaseComponent,
   ],
   imports: [
     BrowserModule,
