@@ -75,6 +75,29 @@ export class SwitchDatabaseComponent implements OnInit {
   }
 
   onChanged(event, id: number ) {
+    if (event.checked) { // open
+      const objOpen = {
+        databaseStatus: '1'
+      };
+      const objOpenStr = JSON.stringify(objOpen); // create json
+      this.service.updateSwitchDatabaseStatus(id, objOpenStr).subscribe((res: Response) => {
+        this.toastr.success('', 'Update status success.');
+        this.readSwitchDatabase();
+      }, err => {
+      });
+    } else {  // close
+ /*     const objClose = {
+        databaseStatus: '0'
+      };
+      const objCloseStr = JSON.stringify(objClose); // create json
+      this.service.updateSwitchDatabaseStatus(id, objCloseStr).subscribe((res: Response) => {
+        this.toastr.success('', 'Update status success.');
+        this.readSwitchDatabase();
+      }, err => {
+      });
+*/
+       this.readSwitchDatabase();
+    }
   }
   onSubmit(form: NgForm) {
     if (form.value.databaseId == null) {
@@ -110,7 +133,6 @@ export class SwitchDatabaseComponent implements OnInit {
     }, err => {
     });
   }
-
 
   // modal
   openSm(content) {

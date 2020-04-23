@@ -29,13 +29,12 @@ export class SwitchDatabaseService {
   readSwitchDatabaseById(id: number) {
     return this.http.get(this.url.rootUrl + '/switch-database/' + id, this.httpOptions);
   }
-  /*updateSwitchDatabaseStatus(id: number , formData: any ) {
-    return this.http.put(this.url.rootUrl + '/web-status/' + id , formData, this.httpOptions);
-  }*/
   saveSwitchDatabase(form: NgForm) {
     return this.http.post(this.url.rootUrl + '/switch-database', form, this.httpOptions);
   }
-
+  updateSwitchDatabaseStatus(id: number , formData: any ) {
+    return this.http.put(this.url.rootUrl + '/switch-database-status/' + id , formData, this.httpOptions);
+  }
   updateSwitchDatabase(id: number, form: NgForm) {
     return this.http.put(this.url.rootUrl + '/switch-database/' + id , form, this.httpOptions);
   }
