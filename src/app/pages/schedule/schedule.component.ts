@@ -64,19 +64,21 @@ export class ScheduleComponent implements OnInit {
     });
   }
   saveSchedule(form: NgForm) {
-    this.service.saveSchedule(form).subscribe((res: Response) => {
+   /* this.service.saveSchedule(form).subscribe((res: Response) => {
       this.toastr.success('', 'Save cron expression success.');
       this.readSchedule();
     }, err => {
     });
+    */
   }
 
   updateSchedule(id , form: NgForm) {
-    this.service.updateSchedule(id, form).subscribe((res: Response) => {
+    /*this.service.updateSchedule(id, form).subscribe((res: Response) => {
       this.toastr.success('', 'Update cron expression success.');
       this.readSchedule();
     }, err => {
     });
+    */
   }
 
   deleteSchedule(id) {

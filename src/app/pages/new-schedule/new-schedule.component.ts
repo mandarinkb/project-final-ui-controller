@@ -23,10 +23,13 @@ export class NewScheduleComponent implements OnInit {
   dMinutes = [{'dMinutes': '00'}, {'dMinutes': '01'}, {'dMinutes': '02'}, {'dMinutes': '03'},
           {'dMinutes': '04'}, {'dMinutes': '05'}, {'dMinutes': '06'}, {'dMinutes': '07'},
           {'dMinutes': '08'}, {'dMinutes': '09'}];
-  hourlyValue: any;
-  minutesValue: any;
-  dHourValue: any;
-  dMinutesValue: any;
+
+  minutesValue = '1';
+  hourlyValue = '1';
+  dHourValue = '00';
+  dMinutesValue = '00';
+
+  radioValue: any;
   collapedSideBar: boolean;
   displayedColumns: string[] = ['schedule_name', 'cron_expression', 'project_name', 'action'];
   dataSource = new MatTableDataSource<Schedule>();
@@ -60,6 +63,8 @@ export class NewScheduleComponent implements OnInit {
       projectName: ''
     };
   }
+
+  // set value when start
   setMinutes() {
     for (let i = 1; i < 60; i++ ) {
     // tslint:disable-next-line:no-construct
@@ -85,6 +90,24 @@ export class NewScheduleComponent implements OnInit {
     }
   }
 
+  // set event
+  setMinutesValue(event: any) {
+    this.minutesValue = event.target.value;
+  }
+
+  setHourlyValue(event: any) {
+    this.hourlyValue = event.target.value;
+  }
+
+  setdHourValue(event: any) {
+    this.dHourValue = event.target.value;
+  }
+
+  setdMinutesValue(event: any) {
+    this.dMinutesValue = event.target.value;
+  }
+
+  // call api
   readSchedule() {
     this.service.readSchedule().subscribe((res: Schedule[]) => {
       this.service.listSchedule = res;
@@ -101,7 +124,7 @@ export class NewScheduleComponent implements OnInit {
     }, err => {
     });
   }
-  saveSchedule(form: NgForm) {
+  saveSchedule(form) {
     this.service.saveSchedule(form).subscribe((res: Response) => {
       this.toastr.success('', 'Save cron expression success.');
       this.readSchedule();
@@ -109,7 +132,7 @@ export class NewScheduleComponent implements OnInit {
     });
   }
 
-  updateSchedule(id , form: NgForm) {
+  updateSchedule(id , form) {
     this.service.updateSchedule(id, form).subscribe((res: Response) => {
       this.toastr.success('', 'Update cron expression success.');
       this.readSchedule();
@@ -125,13 +148,19 @@ export class NewScheduleComponent implements OnInit {
     });
   }
 
+  // submit
   onSubmit(form: NgForm) {
     if (form.value.scheduleId == null) {
-      this.saveSchedule(form.value);
+      const newFormStr = this.addCronExpressionToForm(form);
+      this.saveSchedule(newFormStr);
+      this.radioValue = null; // clear radio button
     } else {
-      this.updateSchedule(form.value.scheduleId , form.value);
+      const newFormStr = this.addCronExpressionToForm(form);
+      this.updateSchedule(form.value.scheduleId , newFormStr);
+      this.radioValue = null; // clear radio button
+
       // restart app
-      /*if (form.value.project_name === 'web scrapping') {
+/*      if (form.value.project_name === 'web scrapping') {
         this.service.restartWebScrapping(form.value).subscribe((res) => {
         }, err => {
           console.log(err);
@@ -139,8 +168,9 @@ export class NewScheduleComponent implements OnInit {
       }
 */
     }
-
   }
+
+  // modal
   openSm(content) {
     this.modalService.open(content, { size: 'sm' });
   }
@@ -151,6 +181,7 @@ export class NewScheduleComponent implements OnInit {
     this.modalService.open(content, { windowClass: 'dark-modal' });
   }
 
+  // modal confirm dialog
   onDelete(id) {
     this.dialogService
       .confirm(
@@ -171,6 +202,58 @@ export class NewScheduleComponent implements OnInit {
         // กรณี ปิด confirmed modal ด้วยวิธีอื่นๆ
         console.log('exit')
       );
+  }
+
+  /*onRadio(even) {
+    console.log(even.target.value);
+  }*/
+
+  // cron expression
+  setCronExpressionMinutes(m) {
+    return '0 0/' + m + ' * 1/1 * ?';
+  }
+
+  setCronExpressionHourly(h) {
+    return '0 0 0/' + h + ' 1/1 * ?';
+  }
+
+  setCronExpressionDaily(h, m) {
+    let newH ;
+    if (h.substring(0, 1) === '0') { // เช็คตัวแรก
+      newH = h.replace('0', '');
+    } else {
+      newH = h;
+    }
+
+    let newM ;
+    if (m.substring(0, 1) === '0') {
+      newM = m.replace('0', '');
+    } else {
+      newM = m;
+    }
+
+    return '0 ' + newM + ' ' + newH + ' 1/1 * ?';
+  }
+
+  // add cron expression to form
+  addCronExpressionToForm(form: NgForm) {
+      // generate cron expression
+      let cronExpressionvalue;
+      if (this.radioValue === 'minutes') {
+        cronExpressionvalue = this.setCronExpressionMinutes(this.minutesValue);
+      } else if (this.radioValue === 'hourly') {
+        cronExpressionvalue = this.setCronExpressionHourly(this.hourlyValue);
+      } else if (this.radioValue === 'daily') {
+        cronExpressionvalue = this.setCronExpressionDaily(this.dHourValue, this.dMinutesValue);
+      }
+      // สร้าง json ใหม่เพื่อ add cronExpressionvalue เข้าไป
+      const newForm = {
+        scheduleName: form.value.scheduleName,
+        methodName: form.value.methodName,
+        projectName: form.value.projectName,
+        cronExpression: cronExpressionvalue
+      };
+      return JSON.stringify(newForm);
   }
 }
 

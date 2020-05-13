@@ -26,13 +26,13 @@ export class ScheduleService {
   readScheduleById(id: number) {
     return this.http.get(this.url.rootUrl + '/schedule/' + id, this.httpOptions);
   }
-  updateSchedule(id: number, form: NgForm) {
+  updateSchedule(id: number, form: string) {
     return this.http.put(this.url.rootUrl + '/schedule/' + id , form, this.httpOptions);
   }
   restartWebScrapping(form: NgForm) {
     return this.http.post(this.url.rootUrlRestart + '/restart-web-scrapping', form, this.httpOptions);
   }
-  saveSchedule(form: NgForm) {
+  saveSchedule(form: string) {
     return this.http.post(this.url.rootUrl + '/schedule', form, this.httpOptions);
   }
   deleteSchedule(id: number) {
