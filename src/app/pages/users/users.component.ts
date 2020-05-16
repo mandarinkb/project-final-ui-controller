@@ -14,6 +14,7 @@ import { Response } from 'src/app/shared/response.model';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
+  swPassword = false;
   collapedSideBar: boolean;
 
   displayedColumns: string[] = ['username', 'role', 'action'];
@@ -43,7 +44,9 @@ export class UsersComponent implements OnInit {
       userId: null,
       username: '',
       password: '',
-      role: ''
+      role: '',
+      newPassword: '',
+      confirmNewPassword: ''
     };
   }
 
@@ -75,8 +78,10 @@ export class UsersComponent implements OnInit {
     });
   }
   readUsersById(id) {
+    this.swPassword = false; // clear show password component
     this.service.readUsersById(id).subscribe((res: Users) => {
       this.service.formUsersData = res;
+      this.service.formUsersData.password = ''; // clear password
     }, err => {
 
     });
@@ -84,7 +89,11 @@ export class UsersComponent implements OnInit {
 
   updateUsers(id , form: NgForm) {
     this.service.updateUsers(id, form).subscribe((res: Response) => {
-      this.toastr.success('', 'Update user success.');
+      if (res.status === 200) {
+        this.toastr.success('', 'Update user success.');
+      } else {
+        this.toastr.error('', 'Incorrect password.');
+      }
       this.readUsers();
     }, err => {
 
@@ -129,10 +138,19 @@ export class UsersComponent implements OnInit {
     this.modalService.open(content, { centered: true });
   }
   onSubmit(form: NgForm) {
-    if (form.value.id == null) {
+    if (form.value.userId == null) {
       this.saveUsers(form.value);
     } else {
-      this.updateUsers(form.value.id, form.value);
+      this.updateUsers(form.value.userId, form.value);
+    }
+    this.swPassword = false; // clear show password component
+  }
+
+  switchPasswordComponent() {
+    if (this.swPassword) {
+      this.swPassword = false;
+    } else {
+      this.swPassword = true;
     }
   }
 
