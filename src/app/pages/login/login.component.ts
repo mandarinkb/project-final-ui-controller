@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
               private remember: RememberMeService) { }
 
   ngOnInit() {
-    this.checkbox = false;
     this.resetForm();
   }
   resetForm(form?: NgForm) {
@@ -34,13 +33,14 @@ export class LoginComponent implements OnInit {
         username: this.remember.getUsername(),
         password: this.remember.getPassword(),
       };
-      this.checkbox = true; // set checkbox ว่าจดจำค่า
+      this.checkbox = true; // set checkbox ว่าจดจำค่าเมื่อเริ่มต้น
     } else {
       this.service.formLogin = {
         id: null,
         username: '',
         password: '',
       };
+      this.checkbox = false;
     }
   }
 
@@ -53,14 +53,22 @@ export class LoginComponent implements OnInit {
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(res.token);
 
-    this.authen.setAuthenticated(res.token); // set token ลง session client browser
-    this.authen.setUsername(decodedToken.sub);         // set username ลง session client browser
-    this.authen.setRole(decodedToken.role);                 // set role ลง session client browser
+    this.authen.setAuthenticated(res.token);    // set token ลง session client browser
+    this.authen.setUsername(decodedToken.sub);  // set username ลง session client browser
+    this.authen.setRole(decodedToken.role);     // set role ลง session client browser
 
+    // กรณีเก็บค่า redirect url ไว้ก่อนให้ไปหน้านั้น
+    if (this.service.redirectUrl !== '') {
+      this.router.navigate([this.service.redirectUrl]);
+    } else { // กรณีไม่เก็บค่า redirect url ไว้ก่อนให้ไปหน้าเริ่มต้น
+      this.router.navigate(['/control']); // ไปยังหน้าดังกล่าว
+    }
+
+    this.service.isLoggedIn = true; // เซ็ตค่าว่า login แล้ว
     this.toastr.success('ยินดีต้อนรับเข้าสู่ระบบ', 'Login success.');
-    this.router.navigate(['/control']); // ไปยังหน้าดังกล่าว
     }, err => {
       this.toastr.error('อีเมลหรือรหัสผ่านไม่ถูกต้อง', 'Login failed.');
+      this.service.isLoggedIn = false; // เซ็ตค่าว่าไม่ได้ login
     });
     this.resetForm(form);
   }
@@ -73,6 +81,7 @@ export class LoginComponent implements OnInit {
     } else { // กรณีที่check remember me ให้เซ็ตค่า
       this.remember.setUsername(this.service.formLogin.username);
       this.remember.setPassword(this.service.formLogin.password);
+      this.remember.setCheckRemember('checked');
     }
   }
 }
