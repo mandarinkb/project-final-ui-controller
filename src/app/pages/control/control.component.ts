@@ -7,6 +7,7 @@ import { Response } from 'src/app/shared/response.model';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
+import { LoginService } from 'src/app/shared/login.service';
 
 @Component({
   selector: 'app-control',
@@ -24,11 +25,16 @@ export class ControlComponent implements OnInit {
   constructor(public service: ControlService ,
               private toastr: ToastrService,
               private dialogService: DialogService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              public login: LoginService) { }
 
   ngOnInit() {
     this.getWebController();
     this.resetForm();
+    // console.log(this.login.isAdmin);
+    if (!this.login.isAdmin) {
+      this.displayedColumns = ['webName', 'webUrl', 'status'];
+    }
   }
   receiveCollapsed($event) {
     this.collapedSideBar = $event;

@@ -1,4 +1,5 @@
 import { Component, OnInit , EventEmitter , Output } from '@angular/core';
+import { LoginService } from 'src/app/shared/login.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,7 +10,7 @@ export class SidebarComponent implements OnInit {
   collapsed: boolean;
   isActive = true;
   showMenu: string;
-  constructor() { }
+  constructor(public login: LoginService) { }
 
   @Output() collapsedEvent = new EventEmitter<boolean>();
 

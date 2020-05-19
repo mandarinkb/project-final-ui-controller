@@ -6,7 +6,7 @@
     
     <div class="card card-block animated fadeIn" id="content-wrap"> 
       <div class="row">
-        <div class="col-md-12" style="max-width: 98%;margin: auto;margin-top: 10px;">
+        <div *ngIf="login.isAdmin" class="col-md-12" style="max-width: 98%;margin: auto;margin-top: 10px;">
           <button type="button" class="btn btn-mini btn-success btn-with-icon" (click)="openWindowCustomClass(addContent); resetForm();">
             <!--(click)=""-->
             <i class="fa fa-plus fa-fw"></i>เพิ่ม
@@ -36,17 +36,17 @@
                 </td>
               </ng-container>
 
-              <ng-container matColumnDef="action">
+              <ng-container matColumnDef="action" *ngIf="login.isAdmin">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element">
                   <button type="button" class="btn btn-mini btn-primary btn-with-icon" (click)="openWindowCustomClass(editContent);readWebById(element.webId)">
                   <i class="fa fa-pencil-square-o fa-fw"></i>แก้ไข
                 </button>
-                <button type="button" class="btn btn-mini btn-danger btn-with-icon" (click)="onDelete(element.webId)"><!---->
+                <button type="button" class="btn btn-mini btn-danger btn-with-icon" (click)="onDelete(element.webId)">
                 <i class="fa fa-trash fa-fw"></i>ลบ
                 </button>
                 </td>
-              </ng-container>              
+              </ng-container>    
       
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr><!-- let i = index-->

@@ -8,7 +8,7 @@
 
     <div class="card card-block animated fadeIn" id="content-wrap">
       <div class="row">
-        <div class="col-md-12" style="max-width: 98%;margin: auto;margin-top: 10px;">
+        <div *ngIf="login.isAdmin" class="col-md-12" style="max-width: 98%;margin: auto;margin-top: 10px;">
           <button type="button" class="btn btn-mini btn-success btn-with-icon"
             (click)="openWindowCustomClass(addContent);resetForm()">
             <i class="fa fa-plus fa-fw"></i>เพิ่ม
@@ -37,7 +37,7 @@
                     (click)="openWindowCustomClass(editContent);readUsersById(element.userId)">
                     <i class="fa fa-pencil-square-o fa-fw"></i>แก้ไข
                   </button>
-                  <button type="button" class="btn btn-mini btn-danger btn-with-icon"
+                  <button *ngIf="login.isAdmin" type="button" class="btn btn-mini btn-danger btn-with-icon"
                     (click)="onDelete(element.userId)">
                     <!---->
                     <i class="fa fa-trash fa-fw"></i>ลบ
@@ -133,7 +133,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div *ngIf="login.isAdmin" class="form-group">
         <label>Role</label>
         <select class="form-control" [(ngModel)]="service.formUsersData.role" #role="ngModel" name="role" required>
           <option value="user">user</option>

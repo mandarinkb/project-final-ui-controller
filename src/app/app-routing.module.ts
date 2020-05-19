@@ -9,7 +9,7 @@ import { NewScheduleComponent } from './pages/new-schedule/new-schedule.componen
 import { AuthGuardService } from './shared/auth-guard.service';
 const routes: Routes = [
 { path: '', redirectTo: '/login', pathMatch: 'full' },
-{ path : 'control', component: ControlComponent, canActivate: [AuthGuardService]},
+{ path : 'control', component: ControlComponent, canActivate: [AuthGuardService]}, //  , canActivate: [AuthGuardService]
 { path : 'schedule', component: ScheduleComponent, canActivate: [AuthGuardService]},
 { path : 'new-schedule', component: NewScheduleComponent, canActivate: [AuthGuardService]},
 { path : 'users', component: UsersComponent, canActivate: [AuthGuardService]},

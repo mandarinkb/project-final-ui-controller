@@ -13,7 +13,7 @@
             <i class="fa fa-fw fa-users"></i>&nbsp;
             <span>จัดการสมาชิก</span>
         </a>
-        <a  [routerLink]="['/switch-database']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
+        <a *ngIf="login.isAdmin"  [routerLink]="['/switch-database']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
             <i class="fa fa-fw fa-database"></i>&nbsp;
             <span>จัดการสลับดาต้าเบส</span>
         </a>

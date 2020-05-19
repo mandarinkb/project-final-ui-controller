@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenService } from 'src/app/shared/authen.service';
 import { Router } from '@angular/router';
 import { RememberMeService } from 'src/app/shared/remember-me.service';
+import { LoginService } from 'src/app/shared/login.service';
 
 @Component({
   selector: 'app-header',
@@ -17,16 +18,20 @@ export class HeaderComponent implements OnInit {
   username: string;
   constructor(private authen: AuthenService ,
               private router: Router,
-              private remember: RememberMeService) { }
+              private remember: RememberMeService,
+              public login: LoginService) { }
 
   ngOnInit() {
     this.username = this.authen.getUsername();
   }
 
-  logOut() {
+/*  logOut() {
     this.authen.clearAllSession();
     this.router.navigate(['/login']); // ไปยังหน้าดังกล่าว
+
+    this.login.isAdmin = false ; // clear ค่า role
   }
+*/
 
 
 }

@@ -24,6 +24,11 @@ export class UsersService {
     return this.http.get(this.url.rootUrl + '/users', this.httpOptions);
   }
 
+  readUserId(id) {
+    return this.http.get(this.url.rootUrl + '/user/' + id, this.httpOptions);
+  }
+
+
   saveUsers(form: NgForm) {
     return this.http.post(this.url.rootUrl + '/users', form, this.httpOptions);
   }

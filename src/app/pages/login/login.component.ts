@@ -54,8 +54,14 @@ export class LoginComponent implements OnInit {
     const decodedToken = helper.decodeToken(res.token);
 
     this.authen.setAuthenticated(res.token);    // set token ลง session client browser
+    this.authen.setId(decodedToken.id);   // set id ลง session client browser
     this.authen.setUsername(decodedToken.sub);  // set username ลง session client browser
     this.authen.setRole(decodedToken.role);     // set role ลง session client browser
+
+    // set role admin
+    if (decodedToken.role === 'admin') {
+      this.service.isAdmin = true;
+    }
 
     // กรณีเก็บค่า redirect url ไว้ก่อนให้ไปหน้านั้น
     if (this.service.redirectUrl !== '') {

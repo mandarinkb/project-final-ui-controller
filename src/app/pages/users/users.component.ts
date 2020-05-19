@@ -7,6 +7,8 @@ import { NgForm } from '@angular/forms';
 import { Users } from 'src/app/shared/users/users.model';
 import { ToastrService } from 'ngx-toastr';
 import { Response } from 'src/app/shared/response.model';
+import { LoginService } from 'src/app/shared/login.service';
+import { AuthenService } from 'src/app/shared/authen.service';
 
 @Component({
   selector: 'app-users',
@@ -15,22 +17,25 @@ import { Response } from 'src/app/shared/response.model';
 })
 export class UsersComponent implements OnInit {
   swPassword = false;
+  dbUserName: string;
   collapedSideBar: boolean;
-
   displayedColumns: string[] = ['username', 'role', 'action'];
   dataSource = new MatTableDataSource<Users>();
   @ViewChild('paginator') paginator: MatPaginator;
 
   constructor(public service: UsersService,
-              private dialogService: DialogService,
-              private modalService: NgbModal,
-              private toastr: ToastrService) { }
+    private dialogService: DialogService,
+    private modalService: NgbModal,
+    private toastr: ToastrService,
+    public login: LoginService,
+    private auth: AuthenService) { }
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Users>(this.service.listUsers);  //  set datasource
     this.dataSource.paginator = this.paginator;  // set pagination
     this.resetForm();
-    this.readUsers();
+    this.checkRead();
+    this.dbUserName = this.auth.getUsername(); // เก็บ username
   }
   receiveCollapsed($event) {
     this.collapedSideBar = $event;
@@ -50,8 +55,29 @@ export class UsersComponent implements OnInit {
     };
   }
 
+  checkRead() {
+    setTimeout(() => {
+      if (this.login.isAdmin) { // กรณีเป็น  admin
+        this.readUsers();
+      } else {
+        this.readUserId(this.auth.getId());
+      }
+    }, 500); // delay 0.5 วิ
+  }
+
   readUsers() {
     this.service.readUsers().subscribe((res: Users[]) => {
+      this.service.listUsers = res;
+      this.dataSource = new MatTableDataSource<Users>(this.service.listUsers);
+      this.dataSource.paginator = this.paginator;
+    }, err => {
+
+    });
+  }
+
+  // for role user
+  readUserId(id) {
+    this.service.readUserId(id).subscribe((res: Users[]) => {
       this.service.listUsers = res;
       this.dataSource = new MatTableDataSource<Users>(this.service.listUsers);  //  set datasource
       this.dataSource.paginator = this.paginator;  // set pagination
@@ -63,7 +89,7 @@ export class UsersComponent implements OnInit {
   saveUsers(form: NgForm) {
     this.service.saveUsers(form).subscribe((res: Response) => {
       this.toastr.success('', 'Create user success.');
-      this.readUsers();
+      this.checkRead();
     }, err => {
 
     });
@@ -72,7 +98,7 @@ export class UsersComponent implements OnInit {
   deleteUsers(id) {
     this.service.deleteUsers(id).subscribe((res: Response) => {
       this.toastr.success('', 'Delete user success.');
-      this.readUsers();
+      this.checkRead();
     }, err => {
 
     });
@@ -87,14 +113,14 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  updateUsers(id , form: NgForm) {
+  updateUsers(id, form: NgForm) {
     this.service.updateUsers(id, form).subscribe((res: Response) => {
       if (res.status === 200) {
         this.toastr.success('', 'Update user success.');
       } else {
         this.toastr.error('', 'Incorrect password.');
       }
-      this.readUsers();
+      this.checkRead();
     }, err => {
 
     });
@@ -131,7 +157,7 @@ export class UsersComponent implements OnInit {
   }
 
   openBackDropCustomClass(content) {
-    this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
+    this.modalService.open(content, { backdropClass: 'light-blue-backdrop' });
   }
 
   openVerticallyCentered(content) {
@@ -142,6 +168,15 @@ export class UsersComponent implements OnInit {
       this.saveUsers(form.value);
     } else {
       this.updateUsers(form.value.userId, form.value);
+
+      // กรณีไม่ใช่ admin
+      if (!this.login.isAdmin) {
+        // กรณีมีการเปลี่ยนชื่อ username ใหม่ให้ login อีกรอบ
+        if (this.dbUserName !== form.value.username) {
+          this.login.logOut();
+        }
+      }
+
     }
     this.swPassword = false; // clear show password component
   }

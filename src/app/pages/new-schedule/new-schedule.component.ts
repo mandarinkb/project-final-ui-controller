@@ -7,6 +7,7 @@ import { ScheduleService } from 'src/app/shared/schedule/schedule.service';
 import { Schedule } from 'src/app/shared/schedule/schedule.model';
 import { NgForm } from '@angular/forms';
 import { DialogService } from 'src/app/shared/dialog.service';
+import { LoginService } from 'src/app/shared/login.service';
 
 @Component({
   selector: 'app-new-schedule',
@@ -37,7 +38,8 @@ export class NewScheduleComponent implements OnInit {
   constructor(public service: ScheduleService ,
               private toastr: ToastrService ,
               private dialogService: DialogService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              public login: LoginService) { }
 
   ngOnInit() {
     this.readSchedule();
