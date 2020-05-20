@@ -133,6 +133,15 @@
         </div>
       </div>
 
+      <!--กรณีไม่ใช่ admin ให้่ซ่อนไว้ เพื่อ role จะได้ไม่เป็นค่า null-->
+      <div *ngIf="!login.isAdmin" class="form-group" style="display: none;">
+        <label>Role</label>
+        <select class="form-control" [(ngModel)]="service.formUsersData.role" #role="ngModel" name="role" required>
+          <option value="user">user</option>
+          <option value="admin">admin</option>
+        </select>
+      </div>
+
       <div *ngIf="login.isAdmin" class="form-group">
         <label>Role</label>
         <select class="form-control" [(ngModel)]="service.formUsersData.role" #role="ngModel" name="role" required>

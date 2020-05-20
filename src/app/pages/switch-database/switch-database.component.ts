@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SwitchDatabaseService } from 'src/app/shared/switch-database/switch-database.service';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { SwitchDatabase } from 'src/app/shared/switch-database/switch-database.model';
+import { LoginService } from 'src/app/shared/login.service';
 
 @Component({
   selector: 'app-switch-database',
@@ -21,11 +22,13 @@ export class SwitchDatabaseComponent implements OnInit {
   constructor(public service: SwitchDatabaseService ,
               private toastr: ToastrService,
               private dialogService: DialogService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              public login: LoginService) { }
 
   ngOnInit() {
     this.readSwitchDatabase();
     this.resetForm();
+    this.login.checkAdmin();
   }
 
   receiveCollapsed($event) {

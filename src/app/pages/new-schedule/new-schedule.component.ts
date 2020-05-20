@@ -39,7 +39,7 @@ export class NewScheduleComponent implements OnInit {
               private toastr: ToastrService ,
               private dialogService: DialogService,
               private modalService: NgbModal,
-              public login: LoginService) { }
+              public login: LoginService) {}
 
   ngOnInit() {
     this.readSchedule();
@@ -47,6 +47,7 @@ export class NewScheduleComponent implements OnInit {
     this.setMinutes();
     this.setDHour();
     this.setDMinutes();
+    this.login.checkAdmin();
   }
 
   receiveCollapsed($event) {

@@ -26,12 +26,13 @@ export class ControlComponent implements OnInit {
               private toastr: ToastrService,
               private dialogService: DialogService,
               private modalService: NgbModal,
-              public login: LoginService) { }
+              public login: LoginService) {}
 
   ngOnInit() {
     this.getWebController();
     this.resetForm();
-    // console.log(this.login.isAdmin);
+    this.login.checkAdmin();
+
     if (!this.login.isAdmin) {
       this.displayedColumns = ['webName', 'webUrl', 'status'];
     }

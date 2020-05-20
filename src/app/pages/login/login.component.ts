@@ -50,31 +50,26 @@ export class LoginComponent implements OnInit {
 
   insertRecord(form: NgForm) {
     this.service.postLogin(form.value).subscribe((res: Response) => {
-    const helper = new JwtHelperService();
-    const decodedToken = helper.decodeToken(res.token);
 
+    const helper = new JwtHelperService();
+    const decodedToken = helper.decodeToken(res.token); // ถอดรหัส token
     this.authen.setAuthenticated(res.token);    // set token ลง session client browser
-    this.authen.setId(decodedToken.id);   // set id ลง session client browser
+    this.authen.setId(decodedToken.id);         // set id ลง session client browser
     this.authen.setUsername(decodedToken.sub);  // set username ลง session client browser
     this.authen.setRole(decodedToken.role);     // set role ลง session client browser
-
-    // set role admin
-    if (decodedToken.role === 'admin') {
-      this.service.isAdmin = true;
-    }
 
     // กรณีเก็บค่า redirect url ไว้ก่อนให้ไปหน้านั้น
     if (this.service.redirectUrl !== '') {
       this.router.navigate([this.service.redirectUrl]);
     } else { // กรณีไม่เก็บค่า redirect url ไว้ก่อนให้ไปหน้าเริ่มต้น
-      this.router.navigate(['/control']); // ไปยังหน้าดังกล่าว
+      this.router.navigate(['/control']); // redirect ไปยังหน้าดังกล่าว
     }
 
-    this.service.isLoggedIn = true; // เซ็ตค่าว่า login แล้ว
+    this.service.checkAdmin();  // ตรวจสอบ role ว่าใช่ admin หรือไม่
+
     this.toastr.success('ยินดีต้อนรับเข้าสู่ระบบ', 'Login success.');
     }, err => {
       this.toastr.error('อีเมลหรือรหัสผ่านไม่ถูกต้อง', 'Login failed.');
-      this.service.isLoggedIn = false; // เซ็ตค่าว่าไม่ได้ login
     });
     this.resetForm(form);
   }

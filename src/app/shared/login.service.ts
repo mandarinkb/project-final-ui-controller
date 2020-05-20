@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService {
-  public isLoggedIn = false; // กำหนดสถานะล็อกอินเริ่มต้นเป็น false
+  // public isLoggedIn = false; // กำหนดสถานะล็อกอินเริ่มต้นเป็น false
   public redirectUrl = '';   // กำหนดตัวแปรสำหรับเก็บ url ที่จะลิ้งค์ไป
-  public isAdmin = false;  // role admin
+  public isAdmin = false;    // role admin
 
   formLogin: Login;
   readonly httpOptions = {
@@ -23,17 +23,21 @@ export class LoginService {
   constructor(private http: HttpClient,
               private url: UrlService,
               private auth: AuthenService,
-              private router: Router) { }
-  // create
+              private router: Router) {}
+  // authen
   postLogin(form: Login) {
     return this.http.post(this.url.rootUrl + '/authenticate', form , this.httpOptions);
-   }
+  }
+
+  // ตรวจสอบสถานะ admin
+  checkAdmin() {
+    if (this.auth.getRole() === 'admin') {this.isAdmin = true; }
+  }
 
   logOut() {
-    this.auth.clearAllSession();
-    this.router.navigate(['/login']); // ไปยังหน้าดังกล่าว
-
-    this.isAdmin = false ; // clear ค่า role
+    this.auth.clearAllSession();      // clear session
+    this.router.navigate(['/login']); // redirect ไปยังหน้าดังกล่าว
+    this.isAdmin = false ;            // clear ค่า role admin
   }
 
 }

@@ -17,6 +17,7 @@ import { AuthenService } from 'src/app/shared/authen.service';
 })
 export class UsersComponent implements OnInit {
   swPassword = false;
+  dbRole: string;
   dbUserName: string;
   collapedSideBar: boolean;
   displayedColumns: string[] = ['username', 'role', 'action'];
@@ -31,6 +32,7 @@ export class UsersComponent implements OnInit {
     private auth: AuthenService) { }
 
   ngOnInit() {
+    this.login.checkAdmin();
     this.dataSource = new MatTableDataSource<Users>(this.service.listUsers);  //  set datasource
     this.dataSource.paginator = this.paginator;  // set pagination
     this.resetForm();
@@ -106,6 +108,7 @@ export class UsersComponent implements OnInit {
   readUsersById(id) {
     this.swPassword = false; // clear show password component
     this.service.readUsersById(id).subscribe((res: Users) => {
+      this.dbRole = res.role;
       this.service.formUsersData = res;
       this.service.formUsersData.password = ''; // clear password
     }, err => {
