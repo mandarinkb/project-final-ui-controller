@@ -88,6 +88,12 @@ $topnav-background-color: #192f53;
         margin-top: 5px;
     }
 }
+
+/*ปุ่ม log out*/
 .cursor-pointer {
     cursor: pointer;
+}
+
+.cursor-pointer:hover {
+    background-color: #f3f3f4;
 }
