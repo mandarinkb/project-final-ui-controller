@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService {
+  public hideMenu: boolean;
   // public isLoggedIn = false; // กำหนดสถานะล็อกอินเริ่มต้นเป็น false
   public redirectUrl = '';   // กำหนดตัวแปรสำหรับเก็บ url ที่จะลิ้งค์ไป
   public isAdmin = false;    // role admin

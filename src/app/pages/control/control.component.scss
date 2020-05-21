@@ -32,7 +32,36 @@
     }
   }
   /*จบหลัก*/
+
+  .btn-primary {
+    border-radius: 1.5px;
+    border: none;
+  }
+  .btn-default {
+    border-radius: 1.5px;
+    border: none;
+  }
+  .btn-success {
+    border-radius: 1.5px;
+    border: none;
+  }
   
+  .btn-warning {
+    border-radius: 1.5px;
+    border: none;
+  }
+  
+  .btn-danger {
+    border-radius: 1.5px;
+    border: none;
+  }
+  
+  .btn-info {
+    border-radius: 1.5px;
+    border: none;
+  }
+
+/*
   .btn-primary {
     border-radius: 1.5px;
     background: linear-gradient(to top right, #007bff, #a7d3f9);
@@ -78,7 +107,8 @@
     -webkit-box-shadow: 0 2px 10px 0 rgba(44, 195, 255, 0.5);
     color: #fff;
   }
-  
+*/
+
   #page-container {
     position: relative;
     min-height: 100vh;

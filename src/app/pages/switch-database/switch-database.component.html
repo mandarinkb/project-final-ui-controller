@@ -24,7 +24,7 @@
               </ng-container>
       
               <ng-container matColumnDef="databaseStatus">
-                <th mat-header-cell *matHeaderCellDef> Database status </th>
+                <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Database status </th>
                 <td mat-cell *matCellDef="let element">
                   <mat-slide-toggle (change)="onChanged($event,element.databaseId)" [checked]="element.databaseStatus">
                   </mat-slide-toggle>
@@ -32,7 +32,7 @@
               </ng-container>
 
               <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Action </th>
                 <td mat-cell *matCellDef="let element">
                   <button type="button" class="btn btn-mini btn-primary btn-with-icon" (click)="openWindowCustomClass(editContent);readSwitchDatabaseById(element.databaseId)">
                   <i class="fa fa-pencil-square-o fa-fw"></i>แก้ไข

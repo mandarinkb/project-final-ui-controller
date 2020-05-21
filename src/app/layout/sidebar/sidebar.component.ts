@@ -8,28 +8,16 @@ import { LoginService } from 'src/app/shared/login.service';
 })
 export class SidebarComponent implements OnInit {
   collapsed: boolean;
-  isActive = true;
-  showMenu: string;
   constructor(public login: LoginService) { }
 
   @Output() collapsedEvent = new EventEmitter<boolean>();
 
   ngOnInit() {
     this.collapsed = false;
-    this.showMenu = '';
   }
 
   toggleCollapsed() {
     this.collapsed = !this.collapsed;
     this.collapsedEvent.emit(this.collapsed);
-  }
-  addExpandClass(element: any) {
-    console.log('befor' + this.showMenu);
-    if (element === this.showMenu) {
-        this.showMenu = '0';
-    } else {
-        this.showMenu = element;
-    }
-    console.log('after' + this.showMenu);
   }
 }
