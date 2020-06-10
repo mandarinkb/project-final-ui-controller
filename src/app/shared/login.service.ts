@@ -35,10 +35,15 @@ export class LoginService {
     if (this.auth.getRole() === 'admin') {this.isAdmin = true; }
   }
 
+  getLogOut() {
+    return this.http.get(this.url.rootUrl + '/logout', this.httpOptions);
+  }
+
   logOut() {
     this.auth.clearAllSession();      // clear session
     this.router.navigate(['/login']); // redirect ไปยังหน้าดังกล่าว
     this.isAdmin = false ;            // clear ค่า role admin
+    this.getLogOut().subscribe();     // เพื่อบันทึก log logout
   }
 
 }
