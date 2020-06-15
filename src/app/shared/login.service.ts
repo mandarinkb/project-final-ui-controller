@@ -13,21 +13,20 @@ export class LoginService {
   // public isLoggedIn = false; // กำหนดสถานะล็อกอินเริ่มต้นเป็น false
   public redirectUrl = '';   // กำหนดตัวแปรสำหรับเก็บ url ที่จะลิ้งค์ไป
   public isAdmin = false;    // role admin
-
+  token: string;
   formLogin: Login;
-  readonly httpOptions = {
+  readonly options = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   };
-
   constructor(private http: HttpClient,
               private url: UrlService,
               private auth: AuthenService,
               private router: Router) {}
   // authen
   postLogin(form: Login) {
-    return this.http.post(this.url.rootUrl + '/authenticate', form , this.httpOptions);
+    return this.http.post(this.url.rootUrl + '/authenticate', form , this.options);
   }
 
   // ตรวจสอบสถานะ admin
@@ -36,14 +35,27 @@ export class LoginService {
   }
 
   getLogOut() {
-    return this.http.get(this.url.rootUrl + '/logout', this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.post(this.url.rootUrl + '/logout', this.httpOptions());
   }
 
   logOut() {
-    this.auth.clearAllSession();      // clear session
-    this.router.navigate(['/login']); // redirect ไปยังหน้าดังกล่าว
-    this.isAdmin = false ;            // clear ค่า role admin
     this.getLogOut().subscribe();     // เพื่อบันทึก log logout
+
+    setTimeout(() => {
+      this.auth.clearAllSession();      // clear session
+      this.router.navigate(['/login']); // redirect ไปยังหน้าดังกล่าว
+      this.isAdmin = false ;            // clear ค่า role admin
+    }, 1000); // delay 3 วินาที
+
+  }
+
+  httpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + this.token
+      })
+    };
   }
 
 }

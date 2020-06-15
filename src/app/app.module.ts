@@ -31,6 +31,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { UsersComponent } from './pages/users/users.component';
 import { SwitchDatabaseComponent } from './pages/switch-database/switch-database.component';
 import { NewScheduleComponent } from './pages/new-schedule/new-schedule.component';
+import { LogComponent } from './pages/log/log.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { NewScheduleComponent } from './pages/new-schedule/new-schedule.componen
     UsersComponent,
     SwitchDatabaseComponent,
     NewScheduleComponent,
+    LogComponent,
   ],
   imports: [
     BrowserModule,

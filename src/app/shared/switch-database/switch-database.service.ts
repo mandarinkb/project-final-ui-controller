@@ -8,38 +8,52 @@ import { SwitchDatabase } from './switch-database.model';
   providedIn: 'root'
 })
 export class SwitchDatabaseService {
+  token: string;
+  /*
   readonly httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.auth.getAuthenticated()
+      'Authorization': 'Bearer ' + this.token
     })
   };
-
+*/
   formData: SwitchDatabase;
   listSwitchDatabase: SwitchDatabase[];
   constructor(private auth: AuthenService,
               private http: HttpClient,
-              private url: UrlService) {
-
-  }
+              private url: UrlService) {}
 
   readSwitchDatabase() {
-    return this.http.get(this.url.rootUrl + '/switch-database', this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.get(this.url.rootUrl + '/switch-database', this.httpOptions());
   }
   readSwitchDatabaseById(id: number) {
-    return this.http.get(this.url.rootUrl + '/switch-database/' + id, this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.get(this.url.rootUrl + '/switch-database/' + id, this.httpOptions());
   }
   saveSwitchDatabase(form: NgForm) {
-    return this.http.post(this.url.rootUrl + '/switch-database', form, this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.post(this.url.rootUrl + '/switch-database', form, this.httpOptions());
   }
   updateSwitchDatabaseStatus(id: number , formData: any ) {
-    return this.http.put(this.url.rootUrl + '/switch-database-status/' + id , formData, this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.put(this.url.rootUrl + '/switch-database-status/' + id , formData, this.httpOptions());
   }
   updateSwitchDatabase(id: number, form: NgForm) {
-    return this.http.put(this.url.rootUrl + '/switch-database/' + id , form, this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.put(this.url.rootUrl + '/switch-database/' + id , form, this.httpOptions());
   }
 
   deleteSwitchDatabase(id: number) {
-    return this.http.delete(this.url.rootUrl + '/switch-database/' + id, this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.delete(this.url.rootUrl + '/switch-database/' + id, this.httpOptions());
+  }
+  httpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.token
+      })
+    };
   }
 }

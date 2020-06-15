@@ -9,38 +9,46 @@ import { AuthenService } from '../authen.service';
   providedIn: 'root'
 })
 export class UsersService {
-  readonly httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.auth.getAuthenticated()
-    })
-  };
+  token: string;
   formUsersData: Users;
   listUsers: Users[];
   constructor(private http: HttpClient,
               private url: UrlService,
-              private auth: AuthenService) { }
+              private auth: AuthenService) {}
   readUsers() {
-    return this.http.get(this.url.rootUrl + '/users', this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.get(this.url.rootUrl + '/users', this.httpOptions());
   }
 
   readUserId(id) {
-    return this.http.get(this.url.rootUrl + '/user/' + id, this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.get(this.url.rootUrl + '/user/' + id, this.httpOptions());
   }
 
-
   saveUsers(form: NgForm) {
-    return this.http.post(this.url.rootUrl + '/users', form, this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.post(this.url.rootUrl + '/users', form, this.httpOptions());
   }
 
   deleteUsers(id: number) {
-    return this.http.delete(this.url.rootUrl + '/users/' + id, this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.delete(this.url.rootUrl + '/users/' + id, this.httpOptions());
   }
 
   readUsersById(id: number) {
-    return this.http.get(this.url.rootUrl + '/users/' + id, this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.get(this.url.rootUrl + '/users/' + id, this.httpOptions());
   }
   updateUsers(id: number, form: NgForm) {
-    return this.http.put(this.url.rootUrl + '/users/' + id , form, this.httpOptions);
+    this.token = this.auth.getAuthenticated();
+    return this.http.put(this.url.rootUrl + '/users/' + id , form, this.httpOptions());
+  }
+  httpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.token
+      })
+    };
   }
 }

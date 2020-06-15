@@ -7,6 +7,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { SwitchDatabaseComponent } from './pages/switch-database/switch-database.component';
 import { NewScheduleComponent } from './pages/new-schedule/new-schedule.component';
 import { AuthGuardService } from './shared/auth-guard.service';
+import { LogComponent } from './pages/log/log.component';
 const routes: Routes = [
 { path: '', redirectTo: '/login', pathMatch: 'full' },
 { path : 'control', component: ControlComponent, canActivate: [AuthGuardService]}, //  , canActivate: [AuthGuardService]
@@ -14,7 +15,8 @@ const routes: Routes = [
 { path : 'new-schedule', component: NewScheduleComponent, canActivate: [AuthGuardService]},
 { path : 'users', component: UsersComponent, canActivate: [AuthGuardService]},
 { path : 'login', component: LoginComponent },
-{ path : 'switch-database', component: SwitchDatabaseComponent, canActivate: [AuthGuardService]}
+{ path : 'switch-database', component: SwitchDatabaseComponent, canActivate: [AuthGuardService]},
+{ path : 'log', component: LogComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({

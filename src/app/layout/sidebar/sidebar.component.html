@@ -1,5 +1,5 @@
 
-<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+<nav class="sidebar" [ngClass]="{collapsed: collapsed}"><!--sidebarPushRight: isActive, -->
     <div class="list-group">
         <a  [routerLink]="['/control']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
             <i class="fa fa-fw fa-cog"></i>&nbsp;
@@ -16,6 +16,10 @@
         <a *ngIf="login.isAdmin"  [routerLink]="['/switch-database']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
             <i class="fa fa-fw fa-database"></i>&nbsp;
             <span>จัดการสลับดาต้าเบส</span>
+        </a>
+        <a *ngIf="login.isAdmin"  [routerLink]="['/log']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
+            <i class="fa fa-fw fa-calendar"></i>&nbsp;
+            <span>จัดการ Log</span>
         </a>
 
    </div>
