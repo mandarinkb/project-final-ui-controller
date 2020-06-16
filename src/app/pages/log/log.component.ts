@@ -31,10 +31,10 @@ export class LogComponent implements OnInit {
 
   getLog(date) {
     const obj = {
-      timestamp: date    // '2020-06-13'
+      datetime: date    // '2020-06-13'
     };
-    const timestamp = JSON.stringify(obj); // create json
-    this.service.readLog(timestamp).subscribe((res: Log[]) => {
+    const datetime = JSON.stringify(obj); // create json
+    this.service.readLog(datetime).subscribe((res: Log[]) => {
       // this.service.listLog = res;
       this.dataSource = new MatTableDataSource<Log>(res);  //  set datasource
       this.dataSource.paginator = this.paginator;  // set pagination
