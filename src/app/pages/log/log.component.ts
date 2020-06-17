@@ -35,7 +35,6 @@ export class LogComponent implements OnInit {
     };
     const datetime = JSON.stringify(obj); // create json
     this.service.readLog(datetime).subscribe((res: Log[]) => {
-      // this.service.listLog = res;
       this.dataSource = new MatTableDataSource<Log>(res);  //  set datasource
       this.dataSource.paginator = this.paginator;  // set pagination
     });

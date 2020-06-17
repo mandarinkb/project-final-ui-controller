@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class LoginService {
   public hideMenu: boolean;
-  // public isLoggedIn = false; // กำหนดสถานะล็อกอินเริ่มต้นเป็น false
   public redirectUrl = '';   // กำหนดตัวแปรสำหรับเก็บ url ที่จะลิ้งค์ไป
   public isAdmin = false;    // role admin
   token: string;
@@ -46,7 +45,7 @@ export class LoginService {
       this.auth.clearAllSession();      // clear session
       this.router.navigate(['/login']); // redirect ไปยังหน้าดังกล่าว
       this.isAdmin = false ;            // clear ค่า role admin
-    }, 1000); // delay 3 วินาที
+    }, 1000); // delay 1 วินาที
 
   }
 

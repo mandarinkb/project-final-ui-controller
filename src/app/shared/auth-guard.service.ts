@@ -13,7 +13,7 @@ export class AuthGuardService {
               private login: LoginService,
               private auth: AuthenService) { }
 
-  // กำนหนด guard ในส่วนของการใช้งานกับ  canActivate
+  // กำนหนด guard ในส่วนของการใช้งานกับ  canActivate  ถ้าค่าเป็น true  แสดงว่า login แล้ว
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const url: string = state.url; // เก็บ url ที่พยายามจะเข้าใช้งาน
     // จะผ่านเข้าใช้งานได้เมื่อ คืนค่าเป็น true โดยเข้าไปเช็คค่าจากคำสั่ง checkLogin()
@@ -22,8 +22,8 @@ export class AuthGuardService {
 
   // ฟังก์ชั่นเช็คสถานะการล็อกอิน รับค่า url ที่ผู้ใช้พยายามจะเข้าใช้งาน
   checkLogin(url: string): boolean {
-    // ถ้าตรวจสอบค่าสถานะการล็อกอินแล้วเป็น true ก็ให้คืนค่า true กลับอกไป
-    // if (this.login.isLoggedIn) { return true; }
+    // fix bug แก้รีเฟรชหน้าแล้ว role admin หาย
+    if (this.auth.getRole() === 'admin') { this.login.isAdmin = true; }
 
     // ถ้าตรวจสอบ session ถ้า username มีค่าจะคืนค่า แสดงว่า login แล้ว ให้คืนค่า true กลับอกไป
     if (this.auth.getUsername() !== '') { return true; }
