@@ -22,17 +22,17 @@ export class AuthGuardService {
 
   // ฟังก์ชั่นเช็คสถานะการล็อกอิน รับค่า url ที่ผู้ใช้พยายามจะเข้าใช้งาน
   checkLogin(url: string): boolean {
-    // fix bug แก้รีเฟรชหน้าแล้ว role admin หาย
-    if (this.auth.getRole() === 'admin') { this.login.isAdmin = true; }
-
     // ถ้าตรวจสอบ session ถ้า username มีค่าจะคืนค่า แสดงว่า login แล้ว ให้คืนค่า true กลับอกไป
-    if (this.auth.getUsername() !== '') { return true; }
-
-    // แต่ถ้ายังไม่ได้ล็อกอิน ให้เก็บ url ที่พยายามจะเข้าใช้งาน สำหรับไว้ลิ้งค์เปลี่ยนหน้า
-    this.login.redirectUrl = url; // redirectUrl เป็นตัวแปรที่อยู่ใน LoginService
-
-    // ลิ้งค์ไปยังหน้าล็อกอิน เพื่อล็อกอินเข้าใช้งานก่อน
-    this.router.navigate(['/login']);
-    return false; // คืนค่า false กรณียังไม่ได้ล็อกอิน
+    if (this.auth.getUsername() !== null) {
+      // fix bug แก้รีเฟรชหน้าแล้ว role admin หาย
+      if (this.auth.getRole() === 'admin') { this.login.isAdmin = true; }
+      return true;
+    } else {
+      // แต่ถ้ายังไม่ได้ล็อกอิน ให้เก็บ url ที่พยายามจะเข้าใช้งาน สำหรับไว้ลิ้งค์เปลี่ยนหน้า
+      this.login.redirectUrl = url; // redirectUrl เป็นตัวแปรที่อยู่ใน LoginService
+      // ลิ้งค์ไปยังหน้าล็อกอิน เพื่อล็อกอินเข้าใช้งานก่อน
+      this.router.navigate(['/login']);
+      return false; // คืนค่า false กรณียังไม่ได้ล็อกอิน
+    }
   }
 }

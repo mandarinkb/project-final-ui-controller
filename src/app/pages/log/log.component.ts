@@ -10,7 +10,6 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./log.component.scss']
 })
 export class LogComponent implements OnInit {
-  // date: {year: number, month: number};
   constructor(public service: LogService,
               private calendar: NgbCalendar) { }
   collapedSideBar: boolean;
@@ -30,18 +29,21 @@ export class LogComponent implements OnInit {
   }
 
   getLog(date) {
-    const obj = {
-      datetime: date    // '2020-06-13'
-    };
-    const datetime = JSON.stringify(obj); // create json
-    this.service.readLog(datetime).subscribe((res: Log[]) => {
-      this.dataSource = new MatTableDataSource<Log>(res);  //  set datasource
-      this.dataSource.paginator = this.paginator;  // set pagination
-    });
+    try {
+      const obj = {
+        datetime: date    // '2020-06-13'
+      };
+      const datetime = JSON.stringify(obj); // create json
+      this.service.readLog(datetime).subscribe((res: Log[]) => {
+        this.dataSource = new MatTableDataSource<Log>(res);  //  set datasource
+        this.dataSource.paginator = this.paginator;          // set pagination
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   selectDate() {
-    console.log(this.modelDate);
     this.getLog(this.dateFormat(this.modelDate));
   }
 
