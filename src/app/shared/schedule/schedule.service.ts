@@ -29,7 +29,7 @@ export class ScheduleService {
   }
   restartWebScrapping(form: NgForm) {
     this.token = this.auth.getAuthenticated();
-    return this.http.post(this.url.rootUrlRestart + '/restart-web-scrapping', form, this.httpOptions());
+    return this.http.post(this.url.rootUrlRestart + '/restart', form, this.httpOptions());
   }
   saveSchedule(form: string) {
     this.token = this.auth.getAuthenticated();

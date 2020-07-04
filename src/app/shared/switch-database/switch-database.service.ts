@@ -9,14 +9,6 @@ import { SwitchDatabase } from './switch-database.model';
 })
 export class SwitchDatabaseService {
   token: string;
-  /*
-  readonly httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.token
-    })
-  };
-*/
   formData: SwitchDatabase;
   listSwitchDatabase: SwitchDatabase[];
   constructor(private auth: AuthenService,
@@ -43,7 +35,6 @@ export class SwitchDatabaseService {
     this.token = this.auth.getAuthenticated();
     return this.http.put(this.url.rootUrl + '/switch-database/' + id , form, this.httpOptions());
   }
-
   deleteSwitchDatabase(id: number) {
     this.token = this.auth.getAuthenticated();
     return this.http.delete(this.url.rootUrl + '/switch-database/' + id, this.httpOptions());

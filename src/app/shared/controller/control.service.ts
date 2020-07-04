@@ -4,7 +4,6 @@ import { Web } from './web.model';
 import { NgForm } from '@angular/forms';
 import { UrlService } from '../url.service';
 import { AuthenService } from '../authen.service';
- import { Http, Headers, RequestOptions} from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
@@ -34,12 +33,10 @@ export class ControlService {
     this.token = this.auth.getAuthenticated();
     return this.http.post(this.url.rootUrl + '/web', form, this.httpOptions());
   }
-
   updateWeb(id: number, form: NgForm) {
     this.token = this.auth.getAuthenticated();
     return this.http.put(this.url.rootUrl + '/web/' + id , form, this.httpOptions());
   }
-
   deleteWeb(id: number) {
     this.token = this.auth.getAuthenticated();
     return this.http.delete(this.url.rootUrl + '/web/' + id, this.httpOptions());

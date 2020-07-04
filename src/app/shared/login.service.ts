@@ -27,28 +27,20 @@ export class LoginService {
   postLogin(form: Login) {
     return this.http.post(this.url.rootUrl + '/authenticate', form , this.options);
   }
-
   // ตรวจสอบสถานะ admin
   checkAdmin() {
     if (this.auth.getRole() === 'admin') {this.isAdmin = true; }
   }
-
   getLogOut() {
     this.token = this.auth.getAuthenticated();
     return this.http.post(this.url.rootUrl + '/logout', this.httpOptions());
   }
-
-  logOut() {
-    this.getLogOut().subscribe();     // เพื่อบันทึก log logout
-
-    setTimeout(() => {
-      this.auth.clearAllSession();      // clear session
-      this.router.navigate(['/login']); // redirect ไปยังหน้าดังกล่าว
-      this.isAdmin = false ;            // clear ค่า role admin
-    }, 1000); // delay 1 วินาที
-
+  async logOut() {
+    await this.getLogOut().subscribe();     // เพื่อบันทึก log logout
+    this.auth.clearAllSession();            // clear session
+    this.router.navigate(['/login']);       // redirect ไปยังหน้าดังกล่าว
+    this.isAdmin = false ;                  // clear ค่า role admin
   }
-
   httpOptions() {
     return {
       headers: new HttpHeaders({
@@ -56,5 +48,4 @@ export class LoginService {
       })
     };
   }
-
 }

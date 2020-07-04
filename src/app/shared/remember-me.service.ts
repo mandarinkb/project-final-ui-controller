@@ -18,7 +18,6 @@ export class RememberMeService {
   clearUsername() {
     localStorage.removeItem(this.accessUsername);
   }
-
   // password
   setPassword(password: string) {
     localStorage.setItem(this.accessPassword, password);
@@ -29,7 +28,6 @@ export class RememberMeService {
   clearPassword() {
     localStorage.removeItem(this.accessPassword);
   }
-
   // checkbox
   setCheckRemember(check: string) {
     localStorage.setItem(this.accessRememberMe, check);
@@ -40,7 +38,6 @@ export class RememberMeService {
   clearCheckRemember() {
     localStorage.removeItem(this.accessRememberMe);
   }
-
   clearAllRemember() {
     this.clearUsername();
     this.clearPassword();

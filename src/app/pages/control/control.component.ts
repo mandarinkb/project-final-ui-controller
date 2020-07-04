@@ -93,7 +93,7 @@ export class ControlComponent implements OnInit {
     }, err => {
     });
   }
-
+  // ปุ่มเปลี่ยนสถานะเว็บ
   onChanged(event, id: number ) {
     if (event.checked) { // open
       const objOpen = {
@@ -101,9 +101,7 @@ export class ControlComponent implements OnInit {
       };
       const objOpenStr = JSON.stringify(objOpen); // create json
       this.service.updateWebStatus(id, objOpenStr).subscribe((res: Response) => {
-
         this.toastr.success('', 'Update status success.');
-
         this.getWebController();
       }, err => {
       });
@@ -126,7 +124,6 @@ export class ControlComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Web>(this.service.lisWeb);  //  set datasource
       this.dataSource.paginator = this.paginator;  // set pagination
     }, err => {
-
     });
   }
 
@@ -138,13 +135,11 @@ export class ControlComponent implements OnInit {
       )
       .then(confirmed => {  // กดok => confirmed = true , กดcancel => confirmed = false
         if (confirmed) {
-          // console.log('ok');
           this.deleteWeb(id);
         } else {
         // กรณี cancel ลบ
           console.log('cancel');
         }
-
       })
       .catch(() =>
         // กรณี ปิด confirmed modal ด้วยวิธีอื่นๆ
@@ -171,7 +166,5 @@ export class ControlComponent implements OnInit {
   openVerticallyCentered(content) {
     this.modalService.open(content, { centered: true });
   }
-/*
-  */
   // end-modal
 }

@@ -16,7 +16,7 @@ import { LoginService } from 'src/app/shared/login.service';
 export class SwitchDatabaseComponent implements OnInit {
   databaseStatus = '0';
   collapedSideBar: boolean;
-  displayedColumns: string[] = ['databaseName', 'databaseStatus', 'action']; // 'status',
+  displayedColumns: string[] = ['databaseName', 'databaseStatus', 'action'];
   dataSource = new MatTableDataSource<SwitchDatabase>();
   @ViewChild('paginator') paginator: MatPaginator;
   constructor(public service: SwitchDatabaseService ,
@@ -77,6 +77,7 @@ export class SwitchDatabaseComponent implements OnInit {
       );
   }
 
+  // ปุ่มสลับ database
   onChanged(event, id: number ) {
     if (event.checked) { // open
       const objOpen = {
@@ -88,17 +89,7 @@ export class SwitchDatabaseComponent implements OnInit {
         this.readSwitchDatabase();
       }, err => {
       });
-    } else {  // close
- /*     const objClose = {
-        databaseStatus: '0'
-      };
-      const objCloseStr = JSON.stringify(objClose); // create json
-      this.service.updateSwitchDatabaseStatus(id, objCloseStr).subscribe((res: Response) => {
-        this.toastr.success('', 'Update status success.');
-        this.readSwitchDatabase();
-      }, err => {
-      });
-*/
+    } else {
        this.readSwitchDatabase();
     }
   }

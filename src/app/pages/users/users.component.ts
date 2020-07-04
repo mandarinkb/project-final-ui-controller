@@ -36,7 +36,7 @@ export class UsersComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Users>(this.service.listUsers);  //  set datasource
     this.dataSource.paginator = this.paginator;  // set pagination
     this.resetForm();
-    this.checkRead();
+    this.checkRole();
     this.dbUserName = this.auth.getUsername(); // เก็บ username
   }
   receiveCollapsed($event) {
@@ -57,14 +57,13 @@ export class UsersComponent implements OnInit {
     };
   }
 
-  checkRead() {
-    setTimeout(() => {
-      if (this.login.isAdmin) { // กรณีเป็น  admin
-        this.readUsers();
+  async checkRole() {
+      // กรณีเป็น  admin
+      if (this.login.isAdmin) {
+        await this.readUsers();
       } else {
-        this.readUserId(this.auth.getId());
+        await this.readUserId(this.auth.getId());
       }
-    }, 500); // delay 0.5 วิ
   }
 
   readUsers() {
@@ -91,7 +90,7 @@ export class UsersComponent implements OnInit {
   saveUsers(form: NgForm) {
     this.service.saveUsers(form).subscribe((res: Response) => {
       this.toastr.success('', 'Create user success.');
-      this.checkRead();
+      this.checkRole();
     }, err => {
 
     });
@@ -100,7 +99,7 @@ export class UsersComponent implements OnInit {
   deleteUsers(id) {
     this.service.deleteUsers(id).subscribe((res: Response) => {
       this.toastr.success('', 'Delete user success.');
-      this.checkRead();
+      this.checkRole();
     }, err => {
 
     });
@@ -123,7 +122,7 @@ export class UsersComponent implements OnInit {
       } else {
         this.toastr.error('', 'Incorrect password.');
       }
-      this.checkRead();
+      this.checkRole();
     }, err => {
 
     });
@@ -171,7 +170,6 @@ export class UsersComponent implements OnInit {
       this.saveUsers(form.value);
     } else {
       this.updateUsers(form.value.userId, form.value);
-
       // กรณีไม่ใช่ admin
       if (!this.login.isAdmin) {
         // กรณีมีการเปลี่ยนชื่อ username ใหม่ให้ login อีกรอบ
@@ -179,7 +177,6 @@ export class UsersComponent implements OnInit {
           this.login.logOut();
         }
       }
-
     }
     this.swPassword = false; // clear show password component
   }

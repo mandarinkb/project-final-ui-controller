@@ -17,21 +17,9 @@ export class HeaderComponent implements OnInit {
 
   username: string;
   constructor(private authen: AuthenService ,
-              private router: Router,
-              private remember: RememberMeService,
               public login: LoginService) { }
 
   ngOnInit() {
     this.username = this.authen.getUsername();
   }
-
-/*  logOut() {
-    this.authen.clearAllSession();
-    this.router.navigate(['/login']); // ไปยังหน้าดังกล่าว
-
-    this.login.isAdmin = false ; // clear ค่า role
-  }
-*/
-
-
 }

@@ -18,19 +18,13 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FooterComponent } from './layout/footer/footer.component';
 import { ChartsModule } from 'ng2-charts';
-import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { ControlComponent } from './pages/control/control.component';
-// for HttpClient import:
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-
-// for Router import:
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
-
-// for Core import:
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { UsersComponent } from './pages/users/users.component';
 import { SwitchDatabaseComponent } from './pages/switch-database/switch-database.component';
-import { NewScheduleComponent } from './pages/new-schedule/new-schedule.component';
+import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { LogComponent } from './pages/log/log.component';
 @NgModule({
   declarations: [
@@ -42,11 +36,10 @@ import { LogComponent } from './pages/log/log.component';
     MainComponent,
     ConfirmPasswordValidatorService,
     FooterComponent,
-    ScheduleComponent,
     ControlComponent,
     UsersComponent,
     SwitchDatabaseComponent,
-    NewScheduleComponent,
+    ScheduleComponent,
     LogComponent,
   ],
   imports: [

@@ -31,7 +31,7 @@ export class LogComponent implements OnInit {
   getLog(date) {
     try {
       const obj = {
-        datetime: date    // '2020-06-13'
+        datetime: date    // ต้อง format แบบนี้ 2020-06-13
       };
       const datetime = JSON.stringify(obj); // create json
       this.service.readLog(datetime).subscribe((res: Log[]) => {
@@ -92,5 +92,4 @@ export class LogComponent implements OnInit {
     }
     return newValue;
   }
-
 }

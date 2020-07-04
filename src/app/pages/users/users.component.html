@@ -39,7 +39,6 @@
                   </button>
                   <button *ngIf="login.isAdmin" type="button" class="btn btn-mini btn-danger btn-with-icon"
                     (click)="onDelete(element.userId)">
-                    <!---->
                     <i class="fa fa-trash fa-fw"></i>ลบ
                   </button>
                 </td>
@@ -93,7 +92,6 @@
           <option value="user">user</option>
           <option value="admin">admin</option>
         </select>
-        <!--<option value="" [disabled]="true"></option>-->
         <div class="validation-error" *ngIf="role.invalid && role.touched">
           กรุณาเลือกข้อมูล
         </div>
@@ -127,7 +125,7 @@
       <div class="form-group">
         <label>Username</label>
         <input name="username" #username="ngModel" [(ngModel)]="service.formUsersData.username" class="form-control"
-           required /> <!--[disabled]="true"-->
+           required />
         <div class="validation-error" *ngIf="username.invalid && username.touched">
           กรุณากรอกข้อมูล
         </div>
@@ -148,7 +146,6 @@
           <option value="user">user</option>
           <option value="admin">admin</option>
         </select>
-        <!--<option value="" [disabled]="true"></option>-->
         <div class="validation-error" *ngIf="role.invalid && role.touched">
           กรุณาเลือกข้อมูล
         </div>
@@ -160,7 +157,7 @@
 
     <div *ngIf="this.swPassword">
       <div class="form-group">
-        <label>Password</label> <!--type="hidden"-->
+        <label>Password</label>
         <input type="password" name="password" #password="ngModel" [(ngModel)]="service.formUsersData.password"
           class="form-control" required />
         <div class="validation-error" *ngIf="password.invalid && password.touched">
@@ -169,7 +166,7 @@
       </div>
 
       <div class="form-group">
-        <label>New password</label> <!--type="hidden"-->
+        <label>New password</label>
         <input type="password" type="password" name="newPassword" #newPassword="ngModel" [(ngModel)]="service.formUsersData.newPassword"
           class="form-control" required />
         <div class="validation-error" *ngIf="password.invalid && password.touched">
@@ -177,7 +174,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label>Confirm new password</label> <!--type="hidden"-->
+        <label>Confirm new password</label>
         <input type="password" name="confirmNewPassword" #confirmNewPassword="ngModel" appConfirmEqualValidator="newPassword" 
           [(ngModel)]="service.formUsersData.confirmNewPassword" class="form-control" required />
           <div class="validation-error" *ngIf="confirmNewPassword.errors?.notEqual && !confirmNewPassword.errors?.required" >

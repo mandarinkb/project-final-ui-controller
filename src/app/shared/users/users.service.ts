@@ -19,22 +19,18 @@ export class UsersService {
     this.token = this.auth.getAuthenticated();
     return this.http.get(this.url.rootUrl + '/users', this.httpOptions());
   }
-
   readUserId(id) {
     this.token = this.auth.getAuthenticated();
     return this.http.get(this.url.rootUrl + '/user/' + id, this.httpOptions());
   }
-
   saveUsers(form: NgForm) {
     this.token = this.auth.getAuthenticated();
     return this.http.post(this.url.rootUrl + '/users', form, this.httpOptions());
   }
-
   deleteUsers(id: number) {
     this.token = this.auth.getAuthenticated();
     return this.http.delete(this.url.rootUrl + '/users/' + id, this.httpOptions());
   }
-
   readUsersById(id: number) {
     this.token = this.auth.getAuthenticated();
     return this.http.get(this.url.rootUrl + '/users/' + id, this.httpOptions());

@@ -11,6 +11,7 @@ import { NG_VALIDATORS, Validator, AbstractControl } from '@angular/forms';
     }
   ]
 })
+// tslint:disable-next-line:directive-class-suffix
 export class ConfirmPasswordValidatorService implements Validator {
   @Input() appConfirmEqualValidator: string;
   validate(control: AbstractControl): { [key: string]: any } | null {

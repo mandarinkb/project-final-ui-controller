@@ -1,11 +1,11 @@
 
-<nav class="sidebar" [ngClass]="{collapsed: collapsed}"><!--sidebarPushRight: isActive, -->
+<nav class="sidebar" [ngClass]="{collapsed: collapsed}">
     <div class="list-group">
         <a  [routerLink]="['/control']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
             <i class="fa fa-fw fa-cog"></i>&nbsp;
             <span>เว็บคอนโทรล</span>
         </a>
-        <a  [routerLink]="['/new-schedule']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
+        <a  [routerLink]="['/schedule']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
             <i class="fa fa-fw fa-clock-o"></i>&nbsp;
             <span>ตั้งเวลาทำงาน</span>
         </a>
@@ -21,7 +21,6 @@
             <i class="fa fa-fw fa-calendar"></i>&nbsp;
             <span>จัดการ Log</span>
         </a>
-
    </div>
     <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
         <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;

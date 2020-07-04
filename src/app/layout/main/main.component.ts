@@ -13,5 +13,5 @@ export class MainComponent implements OnInit {
   }
   receiveCollapsed($event) {
     this.collapedSideBar = $event;
-}
+  }
 }

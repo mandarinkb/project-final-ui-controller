@@ -22,10 +22,6 @@ export class DialogService {
 
     return modalRef.result;
   }
-
-
-
-
 }
 
 
