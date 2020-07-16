@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
       this.service.checkAdmin();  // ตรวจสอบ role ว่าใช่ admin หรือไม่
       this.toastr.success('ยินดีต้อนรับเข้าสู่ระบบ', 'Login success.');
       }, err => {
-        this.toastr.error('อีเมลหรือรหัสผ่านไม่ถูกต้อง', 'Login failed.');
+        this.toastr.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', 'Login failed.');
       });
       this.resetForm(form);
   }

@@ -89,7 +89,7 @@
       <div class="form-group">
         <label>Role</label>
         <select class="form-control" [(ngModel)]="service.formUsersData.role" #role="ngModel" name="role" required>
-          <option value="user">user</option>
+          <option value="assistant">assistant</option>
           <option value="admin">admin</option>
         </select>
         <div class="validation-error" *ngIf="role.invalid && role.touched">
@@ -135,7 +135,7 @@
       <div *ngIf="!login.isAdmin" class="form-group" style="display: none;">
         <label>Role</label>
         <select class="form-control" [(ngModel)]="service.formUsersData.role" #role="ngModel" name="role" required>
-          <option value="user">user</option>
+          <option value="assistant">assistant</option>
           <option value="admin">admin</option>
         </select>
       </div>
@@ -143,7 +143,7 @@
       <div *ngIf="login.isAdmin" class="form-group">
         <label>Role</label>
         <select class="form-control" [(ngModel)]="service.formUsersData.role" #role="ngModel" name="role" required>
-          <option value="user">user</option>
+          <option value="assistant">assistant</option>
           <option value="admin">admin</option>
         </select>
         <div class="validation-error" *ngIf="role.invalid && role.touched">

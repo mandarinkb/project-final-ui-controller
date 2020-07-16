@@ -17,6 +17,7 @@ import { AuthenService } from 'src/app/shared/authen.service';
 })
 export class UsersComponent implements OnInit {
   swPassword = false;
+  dbId: string;
   dbRole: string;
   dbUserName: string;
   collapedSideBar: boolean;
@@ -38,6 +39,7 @@ export class UsersComponent implements OnInit {
     this.resetForm();
     this.checkRole();
     this.dbUserName = this.auth.getUsername(); // เก็บ username
+    this.dbId = this.auth.getId(); // เก็บ id
   }
   receiveCollapsed($event) {
     this.collapedSideBar = $event;
@@ -170,12 +172,9 @@ export class UsersComponent implements OnInit {
       this.saveUsers(form.value);
     } else {
       this.updateUsers(form.value.userId, form.value);
-      // กรณีไม่ใช่ admin
-      if (!this.login.isAdmin) {
-        // กรณีมีการเปลี่ยนชื่อ username ใหม่ให้ login อีกรอบ
-        if (this.dbUserName !== form.value.username) {
-          this.login.logOut();
-        }
+      // กรณีมีการเปลี่ยนชื่อ username ของตัวเองใหม่ให้ login อีกรอบ
+      if (this.dbUserName !== form.value.username && Number(this.dbId) === form.value.userId) {
+        this.login.logOut();
       }
     }
     this.swPassword = false; // clear show password component
