@@ -3,7 +3,7 @@
     <div class="list-group">
         <a  [routerLink]="['/control']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
             <i class="fa fa-fw fa-cog"></i>&nbsp;
-            <span>เว็บคอนโทรล</span>
+            <span>จัดการเว็บ</span>
         </a>
         <a  [routerLink]="['/schedule']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
             <i class="fa fa-fw fa-clock-o"></i>&nbsp;
@@ -15,7 +15,7 @@
         </a>
         <a *ngIf="login.isAdmin"  [routerLink]="['/switch-database']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
             <i class="fa fa-fw fa-database"></i>&nbsp;
-            <span>จัดการสลับดาต้าเบส</span>
+            <span>จัดการสลับฐานข้อมูล</span>
         </a>
         <a *ngIf="login.isAdmin"  [routerLink]="['/log']" [routerLinkActive]="['router-link-active']" class="list-group-item"> 
             <i class="fa fa-fw fa-calendar"></i>&nbsp;
