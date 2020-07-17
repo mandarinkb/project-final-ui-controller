@@ -72,7 +72,7 @@ export class ControlComponent implements OnInit {
 
   saveWeb(form: NgForm) {
     this.service.saveWeb(form).subscribe((res: Response) => {
-      this.toastr.success('', 'Save web success.');
+      this.toastr.success('บันทึกข้อมูลสำเร็จ');
       this.getWebController();
     }, err => {
     });
@@ -80,7 +80,7 @@ export class ControlComponent implements OnInit {
   deleteWeb(id) {
     this.service.deleteWeb(id).subscribe((res: Response) => {
 
-      this.toastr.success('', 'Delete web success.');
+      this.toastr.success('ลบข้อมูลสำเร็จ');
       this.getWebController();
     }, err => {
     });
@@ -88,7 +88,7 @@ export class ControlComponent implements OnInit {
 
   updateWeb(id , form: NgForm) {
     this.service.updateWeb(id, form).subscribe((res: Response) => {
-      this.toastr.success('', 'Update web success.');
+      this.toastr.success('แก้ไขข้อมูลสำเร็จ');
       this.getWebController();
     }, err => {
     });
@@ -101,7 +101,7 @@ export class ControlComponent implements OnInit {
       };
       const objOpenStr = JSON.stringify(objOpen); // create json
       this.service.updateWebStatus(id, objOpenStr).subscribe((res: Response) => {
-        this.toastr.success('', 'Update status success.');
+        this.toastr.success('แก้ไขข้อมูลสำเร็จ');
         this.getWebController();
       }, err => {
       });
@@ -111,7 +111,7 @@ export class ControlComponent implements OnInit {
       };
       const objCloseStr = JSON.stringify(objClose); // create json
       this.service.updateWebStatus(id, objCloseStr).subscribe((res: Response) => {
-        this.toastr.success('', 'Update status success.');
+        this.toastr.success('แก้ไขข้อมูลสำเร็จ');
         this.getWebController();
       }, err => {
       });

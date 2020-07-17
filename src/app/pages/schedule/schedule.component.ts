@@ -130,7 +130,7 @@ export class ScheduleComponent implements OnInit {
 
   saveSchedule(form) {
     this.service.saveSchedule(form).subscribe((res: Response) => {
-      this.toastr.success('', 'Save cron expression success.');
+      this.toastr.success('บันทึกข้อมูลสำเร็จ');
       this.readSchedule();
     }, err => {
     });
@@ -138,7 +138,7 @@ export class ScheduleComponent implements OnInit {
 
   updateSchedule(id , form) {
     this.service.updateSchedule(id, form).subscribe((res: Response) => {
-      this.toastr.success('', 'Update cron expression success.');
+      this.toastr.success('แก้ไขข้อมูลสำเร็จ');
       this.readSchedule();
     }, err => {
     });
@@ -146,7 +146,7 @@ export class ScheduleComponent implements OnInit {
 
   deleteSchedule(id) {
     this.service.deleteSchedule(id).subscribe((res: Response) => {
-      this.toastr.success('', 'Delete cron expression success.');
+      this.toastr.success('ลบข้อมูลสำเร็จ');
       this.readSchedule();
     }, err => {
     });

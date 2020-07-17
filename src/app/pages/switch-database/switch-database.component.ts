@@ -85,7 +85,7 @@ export class SwitchDatabaseComponent implements OnInit {
       };
       const objOpenStr = JSON.stringify(objOpen); // create json
       this.service.updateSwitchDatabaseStatus(id, objOpenStr).subscribe((res: Response) => {
-        this.toastr.success('', 'Update status success.');
+        this.toastr.success('แก้ไขข้อมูลสำเร็จ');
         this.readSwitchDatabase();
       }, err => {
       });
@@ -108,21 +108,21 @@ export class SwitchDatabaseComponent implements OnInit {
   }
   saveSwitchDatabase(form: NgForm) {
     this.service.saveSwitchDatabase(form).subscribe((res: Response) => {
-      this.toastr.success('', 'Save web success.');
+      this.toastr.success('บันทึกข้อมูลสำเร็จ');
       this.readSwitchDatabase();
     }, err => {
     });
   }
   updateSwitchDatabase(id , form: NgForm) {
     this.service.updateSwitchDatabase(id, form).subscribe((res: Response) => {
-      this.toastr.success('', 'Update web success.');
+      this.toastr.success('แก้ไขข้อมูลสำเร็จ');
       this.readSwitchDatabase();
     }, err => {
     });
   }
   deleteSwitchDatabase(id) {
     this.service.deleteSwitchDatabase(id).subscribe((res: Response) => {
-      this.toastr.success('', 'Delete web success.');
+      this.toastr.success('ลบข้อมูลสำเร็จ');
       this.readSwitchDatabase();
     }, err => {
     });

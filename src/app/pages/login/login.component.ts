@@ -65,9 +65,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/control']); // redirect ไปยังหน้าดังกล่าว
       }
       this.service.checkAdmin();  // ตรวจสอบ role ว่าใช่ admin หรือไม่
-      this.toastr.success('ยินดีต้อนรับเข้าสู่ระบบ', 'Login success.');
+      this.toastr.success('ยินดีต้อนรับเข้าสู่ระบบ'); // 'ยินดีต้อนรับเข้าสู่ระบบ', 'Login success.'
       }, err => {
-        this.toastr.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', 'Login failed.');
+        this.toastr.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
       });
       this.resetForm(form);
   }

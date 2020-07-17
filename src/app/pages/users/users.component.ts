@@ -91,7 +91,7 @@ export class UsersComponent implements OnInit {
 
   saveUsers(form: NgForm) {
     this.service.saveUsers(form).subscribe((res: Response) => {
-      this.toastr.success('', 'Create user success.');
+      this.toastr.success('บันทึกข้อมูลสำเร็จ');
       this.checkRole();
     }, err => {
 
@@ -100,7 +100,7 @@ export class UsersComponent implements OnInit {
 
   deleteUsers(id) {
     this.service.deleteUsers(id).subscribe((res: Response) => {
-      this.toastr.success('', 'Delete user success.');
+      this.toastr.success('ลบข้อมูลสำเร็จ');
       this.checkRole();
     }, err => {
 
@@ -120,9 +120,9 @@ export class UsersComponent implements OnInit {
   updateUsers(id, form: NgForm) {
     this.service.updateUsers(id, form).subscribe((res: Response) => {
       if (res.status === 200) {
-        this.toastr.success('', 'Update user success.');
+        this.toastr.success('แก้ไขข้อมูลสำเร็จ');
       } else {
-        this.toastr.error('', 'Incorrect password.');
+        this.toastr.error('รหัสผ่านเดิมไม่ถูกต้อง');
       }
       this.checkRole();
     }, err => {
