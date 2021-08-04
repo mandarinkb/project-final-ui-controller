@@ -85,7 +85,7 @@
           กรุณากรอกข้อมูล
         </div>
       </div>
-
+      <!--กรณีแอดมิน-->
       <div *ngIf="login.isAdmin" class="form-group">
         <label>Method name</label>
         <input name="methodName" #methodName="ngModel" [(ngModel)]="service.formScheduleData.methodName"
@@ -99,6 +99,24 @@
         <label>Project name</label>
         <input name="projectName" #projectName="ngModel" [(ngModel)]="service.formScheduleData.projectName"
           class="form-control" required />
+        <div class="validation-error" *ngIf="projectName.invalid && projectName.touched">
+          กรุณากรอกข้อมูล
+        </div>
+      </div>
+      <!--กรณีผู้ช่วยแอดมิน-->
+      <div *ngIf="!login.isAdmin" class="form-group">
+        <label>Method name</label>
+        <input ng-readonly="true" name="methodName" #methodName="ngModel" [(ngModel)]="service.formScheduleData.methodName"
+          class="form-control" readonly/>
+        <div class="validation-error" *ngIf="methodName.invalid && methodName.touched">
+          กรุณากรอกข้อมูล
+        </div>
+      </div>
+
+      <div *ngIf="!login.isAdmin" class="form-group">
+        <label>Project name</label>
+        <input name="projectName" #projectName="ngModel" [(ngModel)]="service.formScheduleData.projectName"
+          class="form-control" readonly/>
         <div class="validation-error" *ngIf="projectName.invalid && projectName.touched">
           กรุณากรอกข้อมูล
         </div>
