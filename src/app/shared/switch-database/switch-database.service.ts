@@ -17,34 +17,34 @@ export class SwitchDatabaseService {
 
   readSwitchDatabase() {
     this.token = this.auth.getAuthenticated();
-    return this.http.get(this.url.rootUrl + '/switch-database', this.httpOptions());
+    return this.http.get(this.url.rootUrl + '/switch-database');
   }
   readSwitchDatabaseById(id: number) {
     this.token = this.auth.getAuthenticated();
-    return this.http.get(this.url.rootUrl + '/switch-database/' + id, this.httpOptions());
+    return this.http.get(this.url.rootUrl + '/switch-database/' + id);
   }
   saveSwitchDatabase(form: NgForm) {
     this.token = this.auth.getAuthenticated();
-    return this.http.post(this.url.rootUrl + '/switch-database', form, this.httpOptions());
+    return this.http.post(this.url.rootUrl + '/switch-database', form);
   }
-  updateSwitchDatabaseStatus(id: number , formData: any ) {
+  updateSwitchDatabaseStatus(formData: any ) {
     this.token = this.auth.getAuthenticated();
-    return this.http.put(this.url.rootUrl + '/switch-database-status/' + id , formData, this.httpOptions());
+    return this.http.put(this.url.rootUrl + '/switch-database-status', formData);
   }
-  updateSwitchDatabase(id: number, form: NgForm) {
+  updateSwitchDatabase(form: NgForm) {
     this.token = this.auth.getAuthenticated();
-    return this.http.put(this.url.rootUrl + '/switch-database/' + id , form, this.httpOptions());
+    return this.http.put(this.url.rootUrl + '/switch-database' , form);
   }
   deleteSwitchDatabase(id: number) {
     this.token = this.auth.getAuthenticated();
-    return this.http.delete(this.url.rootUrl + '/switch-database/' + id, this.httpOptions());
+    return this.http.delete(this.url.rootUrl + '/switch-database/' + id);
   }
-  httpOptions() {
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.token
-      })
-    };
-  }
+  // httpOptions() {
+  //   return {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer ' + this.token
+  //     })
+  //   };
+  // }
 }

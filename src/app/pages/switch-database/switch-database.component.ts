@@ -52,7 +52,7 @@ export class SwitchDatabaseComponent implements OnInit {
       this.dataSource = new MatTableDataSource<SwitchDatabase>(this.service.listSwitchDatabase);  //  set datasource
       this.dataSource.paginator = this.paginator;  // set pagination
     }, err => {
-
+      this.toastr.error(err.error.message);
     });
   }
 
@@ -81,13 +81,15 @@ export class SwitchDatabaseComponent implements OnInit {
   onChanged(event, id: number ) {
     if (event.checked) { // open
       const objOpen = {
+        databaseId: id,
         databaseStatus: '1'
       };
       const objOpenStr = JSON.stringify(objOpen); // create json
-      this.service.updateSwitchDatabaseStatus(id, objOpenStr).subscribe((res: Response) => {
+      this.service.updateSwitchDatabaseStatus(objOpenStr).subscribe((res: Response) => {
         this.toastr.success('แก้ไขข้อมูลสำเร็จ');
         this.readSwitchDatabase();
       }, err => {
+        this.toastr.error(err.error.message);
       });
     } else {
        this.readSwitchDatabase();
@@ -97,13 +99,14 @@ export class SwitchDatabaseComponent implements OnInit {
     if (form.value.databaseId == null) {
       this.saveSwitchDatabase(form.value);
     } else {
-      this.updateSwitchDatabase(form.value.databaseId , form.value);
+      this.updateSwitchDatabase(form.value);
     }
   }
   readSwitchDatabaseById(id) {
     this.service.readSwitchDatabaseById(id).subscribe((res: SwitchDatabase) => {
       this.service.formData = res;
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
   saveSwitchDatabase(form: NgForm) {
@@ -111,13 +114,15 @@ export class SwitchDatabaseComponent implements OnInit {
       this.toastr.success('บันทึกข้อมูลสำเร็จ');
       this.readSwitchDatabase();
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
-  updateSwitchDatabase(id , form: NgForm) {
-    this.service.updateSwitchDatabase(id, form).subscribe((res: Response) => {
+  updateSwitchDatabase(form: NgForm) {
+    this.service.updateSwitchDatabase(form).subscribe((res: Response) => {
       this.toastr.success('แก้ไขข้อมูลสำเร็จ');
       this.readSwitchDatabase();
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
   deleteSwitchDatabase(id) {
@@ -125,7 +130,15 @@ export class SwitchDatabaseComponent implements OnInit {
       this.toastr.success('ลบข้อมูลสำเร็จ');
       this.readSwitchDatabase();
     }, err => {
+      this.toastr.error(err.error.message);
     });
+  }
+  convertToBool(str: string) {
+    if (str === '0') {
+      return false;
+    }if (str === '1') {
+      return true;
+    }
   }
 
   // modal

@@ -1,6 +1,6 @@
 export class Log {
-    type: string;
-    message: string;
-    username: string;
+    typeLog: string;
+    msg: string;
+    user: string;
     timestamp: string;
 }

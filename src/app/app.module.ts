@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -26,6 +26,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { SwitchDatabaseComponent } from './pages/switch-database/switch-database.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { LogComponent } from './pages/log/log.component';
+import { AuthInterceptorService } from './shared/auth-interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,11 @@ import { LogComponent } from './pages/log/log.component';
     LoadingBarModule
 
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent]
 

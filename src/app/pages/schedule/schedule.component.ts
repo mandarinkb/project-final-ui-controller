@@ -117,7 +117,7 @@ export class ScheduleComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Schedule>(this.service.listSchedule);  //  set datasource
       this.dataSource.paginator = this.paginator;  // set pagination
     }, err => {
-
+      this.toastr.error(err.error.message);
     });
   }
 
@@ -125,6 +125,7 @@ export class ScheduleComponent implements OnInit {
     this.service.readScheduleById(id).subscribe((res: Schedule) => {
       this.service.formScheduleData = res;
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
 
@@ -133,14 +134,17 @@ export class ScheduleComponent implements OnInit {
       this.toastr.success('บันทึกข้อมูลสำเร็จ');
       this.readSchedule();
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
 
-  updateSchedule(id , form) {
-    this.service.updateSchedule(id, form).subscribe((res: Response) => {
+  updateSchedule(form) {
+    console.log(form);
+    this.service.updateSchedule(form).subscribe((res: Response) => {
       this.toastr.success('แก้ไขข้อมูลสำเร็จ');
       this.readSchedule();
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
 
@@ -149,6 +153,7 @@ export class ScheduleComponent implements OnInit {
       this.toastr.success('ลบข้อมูลสำเร็จ');
       this.readSchedule();
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
 
@@ -160,11 +165,11 @@ export class ScheduleComponent implements OnInit {
       this.radioValue = null; // clear radio button
     } else {
       const newFormStr = this.addCronExpressionToForm(form);
-      await this.updateSchedule(form.value.scheduleId , newFormStr);
+      await this.updateSchedule(newFormStr);
       this.radioValue = null; // clear radio button
     }
     // restart app
-    this.service.restartWebScrapping(form.value).subscribe();
+    // this.service.restartWebScrapping(form.value).subscribe();
   }
 
   // modal
@@ -241,6 +246,7 @@ export class ScheduleComponent implements OnInit {
       }
       // สร้าง json ใหม่เพื่อ add cronExpressionvalue เข้าไป
       const newForm = {
+        scheduleId: form.value.scheduleId,
         scheduleName: form.value.scheduleName,
         methodName: form.value.methodName,
         projectName: form.value.projectName,

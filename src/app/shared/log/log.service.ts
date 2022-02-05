@@ -8,12 +8,12 @@ import { Log } from './log.model';
   providedIn: 'root'
 })
 export class LogService {
-  readonly httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.auth.getAuthenticated()
-    })
-  };
+  // readonly httpOptions = {
+  //   headers: new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Bearer ' + this.auth.getAuthenticated()
+  //   })
+  // };
 
   listLog: Log[];
   constructor(private http: HttpClient,
@@ -21,6 +21,6 @@ export class LogService {
               private auth: AuthenService) { }
 
   readLog(timestamp: any) {
-    return this.http.post(this.url.rootUrl + '/log', timestamp, this.httpOptions);
+    return this.http.post(this.url.rootUrl + '/log', timestamp);
   }
 }

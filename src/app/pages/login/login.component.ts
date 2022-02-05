@@ -52,11 +52,13 @@ export class LoginComponent implements OnInit {
   insertRecord(form: NgForm) {
     this.service.postLogin(form.value).subscribe((res: Response) => {
       const helper = new JwtHelperService();
-      const decodedToken = helper.decodeToken(res.token); // ถอดรหัส token
-      this.authen.setAuthenticated(res.token);    // set token ลง session client browser
+      const decodedToken = helper.decodeToken(res.access_token); // ถอดรหัส token
+
+      this.authen.setAuthenticated(res.access_token);    // set token ลง session client browser
+      this.authen.setRefreshToken(res.refresh_token);    // set refresh token ลง session client browser
       this.authen.setId(decodedToken.id);         // set id ลง session client browser
       this.authen.setUsername(decodedToken.sub);  // set username ลง session client browser
-      this.authen.setRole(decodedToken.role);     // set role ลง session client browser
+      this.authen.setRole(decodedToken.roles);     // set role ลง session client browser
 
       // กรณีเก็บค่า redirect url ไว้ก่อนให้ไปหน้านั้น
       if (this.service.redirectUrl !== '') {

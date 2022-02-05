@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthenService {
-  private accessKey = 'token';
+  private accessKey = 'accessToken';
+  private refreshKey = 'refreshToken';
   private accessId = 'id';
   private accessUsername = 'username';
   private accessRole = 'role';
@@ -23,6 +24,19 @@ export class AuthenService {
   clearAuthenticated() {
     sessionStorage.removeItem(this.accessKey);
   }
+
+    // set token ลง client browser
+  setRefreshToken(token: string) {
+    sessionStorage.setItem(this.refreshKey, token);
+   }
+    // get token ใน client browser
+  getRefreshToken() {
+    return sessionStorage.getItem(this.refreshKey);
+  }
+    // ลบ token ใน client browser
+  clearRefreshToken() {
+    sessionStorage.removeItem(this.refreshKey);
+   }
 
   setId(id: string) {
     sessionStorage.setItem(this.accessId, id);
@@ -62,6 +76,7 @@ export class AuthenService {
 
   clearAllSession() {
     this.clearAuthenticated();
+    this.clearRefreshToken();
     this.clearId();
     this.clearUsername();
     this.clearRole();

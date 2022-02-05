@@ -17,34 +17,34 @@ export class UsersService {
               private auth: AuthenService) {}
   readUsers() {
     this.token = this.auth.getAuthenticated();
-    return this.http.get(this.url.rootUrl + '/users', this.httpOptions());
+    return this.http.get(this.url.rootUrl + '/users');
   }
   readUserId(id) {
     this.token = this.auth.getAuthenticated();
-    return this.http.get(this.url.rootUrl + '/user/' + id, this.httpOptions());
+    return this.http.get(this.url.rootUrl + '/users/' + id);
   }
   saveUsers(form: NgForm) {
     this.token = this.auth.getAuthenticated();
-    return this.http.post(this.url.rootUrl + '/users', form, this.httpOptions());
+    return this.http.post(this.url.rootUrl + '/users', form);
   }
   deleteUsers(id: number) {
     this.token = this.auth.getAuthenticated();
-    return this.http.delete(this.url.rootUrl + '/users/' + id, this.httpOptions());
+    return this.http.delete(this.url.rootUrl + '/users/' + id);
   }
   readUsersById(id: number) {
     this.token = this.auth.getAuthenticated();
-    return this.http.get(this.url.rootUrl + '/users/' + id, this.httpOptions());
+    return this.http.get(this.url.rootUrl + '/users/' + id);
   }
-  updateUsers(id: number, form: NgForm) {
+  updateUsers(form: NgForm) {
     this.token = this.auth.getAuthenticated();
-    return this.http.put(this.url.rootUrl + '/users/' + id , form, this.httpOptions());
+    return this.http.put(this.url.rootUrl + '/users' , form);
   }
-  httpOptions() {
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.token
-      })
-    };
-  }
+  // httpOptions() {
+  //   return {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer ' + this.token
+  //     })
+  //   };
+  // }
 }

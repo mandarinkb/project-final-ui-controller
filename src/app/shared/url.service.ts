@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UrlService {
-  readonly rootUrl = 'https://ldrakha.xyz:8443/api'; // http://10.10.10.126:8888/api
+  readonly rootUrl = 'http://127.0.0.1:8080/v1'; // http://10.10.10.126:8888/api
   readonly rootUrlRestart = 'http://192.168.1.101:8081/api'; // localhost
   constructor() { }
 }

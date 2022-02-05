@@ -15,19 +15,18 @@ import { LoginService } from 'src/app/shared/login.service';
   styleUrls: ['./control.component.scss']
 })
 export class ControlComponent implements OnInit {
-  webStatus = '1';
-
-  collapedSideBar: boolean;
-  displayedColumns: string[] = ['webName', 'webUrl', 'status', 'action'];
-  dataSource = new MatTableDataSource<Web>();
-  @ViewChild('paginator') paginator: MatPaginator;
 
   constructor(public service: ControlService ,
               private toastr: ToastrService,
               private dialogService: DialogService,
               private modalService: NgbModal,
               public login: LoginService) {}
+  webStatus = '1';
 
+  collapedSideBar: boolean;
+  displayedColumns: string[] = ['webName', 'webUrl', 'status', 'action'];
+  dataSource = new MatTableDataSource<Web>();
+  @ViewChild('paginator') paginator: MatPaginator;
   ngOnInit() {
     this.getWebController();
     this.resetForm();
@@ -50,7 +49,8 @@ export class ControlComponent implements OnInit {
       webId: null ,
       webName: '' ,
       webUrl: '',
-      webStatus: '',
+      // webStatus: '',
+      webStatus: null,
       iconUrl: ''
     };
   }
@@ -59,7 +59,7 @@ export class ControlComponent implements OnInit {
     if (form.value.webId == null) {
       this.saveWeb(form.value);
     } else {
-      this.updateWeb(form.value.webId , form.value);
+      this.updateWeb(form.value);
     }
   }
 
@@ -67,6 +67,7 @@ export class ControlComponent implements OnInit {
     this.service.readWebById(id).subscribe((res: Web) => {
       this.service.formData = res;
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
 
@@ -75,45 +76,51 @@ export class ControlComponent implements OnInit {
       this.toastr.success('บันทึกข้อมูลสำเร็จ');
       this.getWebController();
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
   deleteWeb(id) {
     this.service.deleteWeb(id).subscribe((res: Response) => {
-
       this.toastr.success('ลบข้อมูลสำเร็จ');
       this.getWebController();
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
 
-  updateWeb(id , form: NgForm) {
-    this.service.updateWeb(id, form).subscribe((res: Response) => {
+  updateWeb(form: NgForm) {
+    this.service.updateWeb(form).subscribe((res: Response) => {
       this.toastr.success('แก้ไขข้อมูลสำเร็จ');
       this.getWebController();
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
   // ปุ่มเปลี่ยนสถานะเว็บ
   onChanged(event, id: number ) {
     if (event.checked) { // open
       const objOpen = {
+        webId: id,
         webStatus: '1'
       };
       const objOpenStr = JSON.stringify(objOpen); // create json
-      this.service.updateWebStatus(id, objOpenStr).subscribe((res: Response) => {
+      this.service.updateWebStatus(objOpenStr).subscribe((res: Response) => {
         this.toastr.success('แก้ไขข้อมูลสำเร็จ');
         this.getWebController();
       }, err => {
+        this.toastr.error(err.error.message);
       });
     } else {  // close
       const objClose = {
+        webId: id,
         webStatus: '0'
       };
       const objCloseStr = JSON.stringify(objClose); // create json
-      this.service.updateWebStatus(id, objCloseStr).subscribe((res: Response) => {
+      this.service.updateWebStatus(objCloseStr).subscribe((res: Response) => {
         this.toastr.success('แก้ไขข้อมูลสำเร็จ');
         this.getWebController();
       }, err => {
+        this.toastr.error(err.error.message);
       });
     }
   }
@@ -124,6 +131,7 @@ export class ControlComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Web>(this.service.lisWeb);  //  set datasource
       this.dataSource.paginator = this.paginator;  // set pagination
     }, err => {
+      this.toastr.error(err.error.message);
     });
   }
 
@@ -145,6 +153,13 @@ export class ControlComponent implements OnInit {
         // กรณี ปิด confirmed modal ด้วยวิธีอื่นๆ
         console.log('exit')
       );
+  }
+  convertToBool(str: string) {
+    if (str === '0') {
+      return false;
+    }if (str === '1') {
+      return true;
+    }
   }
 
   // modal
@@ -168,3 +183,7 @@ export class ControlComponent implements OnInit {
   }
   // end-modal
 }
+function elseif(arg0: boolean) {
+  throw new Error('Function not implemented.');
+}
+

@@ -74,18 +74,19 @@ export class UsersComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Users>(this.service.listUsers);
       this.dataSource.paginator = this.paginator;
     }, err => {
-
+      this.toastr.error(err.error.message);
     });
   }
 
   // for role user
   readUserId(id) {
-    this.service.readUserId(id).subscribe((res: Users[]) => {
-      this.service.listUsers = res;
+    this.service.readUserId(id).subscribe((res: Users) => {
+      const resArray: Users[] = [res];
+      this.service.listUsers = resArray;
       this.dataSource = new MatTableDataSource<Users>(this.service.listUsers);  //  set datasource
       this.dataSource.paginator = this.paginator;  // set pagination
     }, err => {
-
+      this.toastr.error(err.error.message);
     });
   }
 
@@ -94,8 +95,9 @@ export class UsersComponent implements OnInit {
       this.toastr.success('บันทึกข้อมูลสำเร็จ');
       this.checkRole();
     }, err => {
-
+      this.toastr.error(err.error.message);
     });
+
   }
 
   deleteUsers(id) {
@@ -103,8 +105,9 @@ export class UsersComponent implements OnInit {
       this.toastr.success('ลบข้อมูลสำเร็จ');
       this.checkRole();
     }, err => {
-
+      this.toastr.error(err.error.message);
     });
+
   }
   readUsersById(id) {
     this.swPassword = false; // clear show password component
@@ -113,20 +116,16 @@ export class UsersComponent implements OnInit {
       this.service.formUsersData = res;
       this.service.formUsersData.password = ''; // clear password
     }, err => {
-
+      this.toastr.error(err.error.message);
     });
   }
 
-  updateUsers(id, form: NgForm) {
-    this.service.updateUsers(id, form).subscribe((res: Response) => {
-      if (res.status === 200) {
+  updateUsers(form: NgForm) {
+    this.service.updateUsers(form).subscribe((res: Response) => {
         this.toastr.success('แก้ไขข้อมูลสำเร็จ');
-      } else {
-        this.toastr.error('รหัสผ่านเดิมไม่ถูกต้อง');
-      }
-      this.checkRole();
+        this.checkRole();
     }, err => {
-
+      this.toastr.error(err.error.message);
     });
   }
   onDelete(id) {
@@ -171,10 +170,12 @@ export class UsersComponent implements OnInit {
     if (form.value.userId == null) {
       this.saveUsers(form.value);
     } else {
-      this.updateUsers(form.value.userId, form.value);
+      this.updateUsers(form.value);
       // กรณีมีการเปลี่ยนชื่อ username ของตัวเองใหม่ให้ login อีกรอบ
       if (this.dbUserName !== form.value.username && Number(this.dbId) === form.value.userId) {
-        this.login.logOut();
+        setTimeout(() => {
+          this.login.logOut();
+        }, 1000);
       }
     }
     this.swPassword = false; // clear show password component

@@ -17,35 +17,35 @@ export class ScheduleService {
               private auth: AuthenService) {}
   readSchedule() {
     this.token = this.auth.getAuthenticated();
-    return this.http.get(this.url.rootUrl + '/schedule', this.httpOptions());
+    return this.http.get(this.url.rootUrl + '/schedule');
   }
   readScheduleById(id: number) {
     this.token = this.auth.getAuthenticated();
-    return this.http.get(this.url.rootUrl + '/schedule/' + id, this.httpOptions());
+    return this.http.get(this.url.rootUrl + '/schedule/' + id);
   }
-  updateSchedule(id: number, form: string) {
+  updateSchedule(form: NgForm) {
     this.token = this.auth.getAuthenticated();
-    return this.http.put(this.url.rootUrl + '/schedule/' + id , form, this.httpOptions());
+    return this.http.put(this.url.rootUrl + '/schedule' , form);
   }
   restartWebScrapping(form: NgForm) {
     this.token = this.auth.getAuthenticated();
-    return this.http.post(this.url.rootUrlRestart + '/restart', form, this.httpOptions());
+    return this.http.post(this.url.rootUrlRestart + '/restart', form);
   }
-  saveSchedule(form: string) {
+  saveSchedule(form: NgForm) {
     this.token = this.auth.getAuthenticated();
-    return this.http.post(this.url.rootUrl + '/schedule', form, this.httpOptions());
+    return this.http.post(this.url.rootUrl + '/schedule', form);
   }
   deleteSchedule(id: number) {
     this.token = this.auth.getAuthenticated();
-    return this.http.delete(this.url.rootUrl + '/schedule/' + id, this.httpOptions());
+    return this.http.delete(this.url.rootUrl + '/schedule/' + id);
   }
 
-  httpOptions() {
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.token
-      })
-    };
-  }
+  // httpOptions() {
+  //   return {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer ' + this.token
+  //     })
+  //   };
+  // }
 }

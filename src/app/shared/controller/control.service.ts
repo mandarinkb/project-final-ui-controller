@@ -19,34 +19,34 @@ export class ControlService {
 
   getWeb() {
     this.token = this.auth.getAuthenticated();
-    return this.http.get(this.url.rootUrl + '/web', this.httpOptions());
+    return this.http.get(this.url.rootUrl + '/web'); // , this.httpOptions()
   }
   readWebById(id: number) {
     this.token = this.auth.getAuthenticated();
-    return this.http.get(this.url.rootUrl + '/web/' + id, this.httpOptions());
+    return this.http.get(this.url.rootUrl + '/web/' + id);
   }
-  updateWebStatus(id: number , formData: any ) {
+  updateWebStatus(formData: any ) {
     this.token = this.auth.getAuthenticated();
-    return this.http.put(this.url.rootUrl + '/web-status/' + id , formData, this.httpOptions());
+    return this.http.put(this.url.rootUrl + '/web-status', formData);
   }
   saveWeb(form: NgForm) {
     this.token = this.auth.getAuthenticated();
-    return this.http.post(this.url.rootUrl + '/web', form, this.httpOptions());
+    return this.http.post(this.url.rootUrl + '/web', form);
   }
-  updateWeb(id: number, form: NgForm) {
+  updateWeb( form: NgForm) {
     this.token = this.auth.getAuthenticated();
-    return this.http.put(this.url.rootUrl + '/web/' + id , form, this.httpOptions());
+    return this.http.put(this.url.rootUrl + '/web'  , form);
   }
   deleteWeb(id: number) {
     this.token = this.auth.getAuthenticated();
-    return this.http.delete(this.url.rootUrl + '/web/' + id, this.httpOptions());
+    return this.http.delete(this.url.rootUrl + '/web/' + id);
   }
-  httpOptions() {
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.token
-      })
-    };
-  }
+  // httpOptions() {
+  //   return {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer ' + this.token
+  //     })
+  //   };
+  // }
 }
