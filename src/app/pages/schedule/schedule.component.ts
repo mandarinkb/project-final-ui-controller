@@ -168,8 +168,8 @@ export class ScheduleComponent implements OnInit {
       await this.updateSchedule(newFormStr);
       this.radioValue = null; // clear radio button
     }
-    // restart app
-    // this.service.restartWebScrapping(form.value).subscribe();
+    // restart web scrapping bot
+    this.service.restartWebScrapping(form.value).subscribe();
   }
 
   // modal

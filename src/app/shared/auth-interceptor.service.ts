@@ -13,8 +13,6 @@ export class AuthInterceptorService implements HttpInterceptor {
   constructor(private authServ: AuthenService,
               private loginServ: LoginService) { }
 
-    private isRefreshing = false;
-    // private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     request = this.addTokenHeader(request, this.authServ.getAuthenticated());
     return next.handle(request)
@@ -25,7 +23,6 @@ export class AuthInterceptorService implements HttpInterceptor {
         } else {
           return throwError(error);
         }
-
     }));
   }
 
@@ -34,25 +31,17 @@ export class AuthInterceptorService implements HttpInterceptor {
   }
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-    if (!this.isRefreshing) {
-      this.isRefreshing = true;
-      // this.refreshTokenSubject.next(null);
-        return this.loginServ.refreshToken().pipe(
-          switchMap((token: Response) => {
-            console.log('new token : ', token.access_token);
-            this.isRefreshing = false;
-            this.authServ.setAuthenticated(token.access_token);
-            this.authServ.setRefreshToken(token.refresh_token);
-            // this.refreshTokenSubject.next(token.access_token);
-            return next.handle(this.addTokenHeader(request, token.access_token));
-          }),
-          catchError((err) => {
-            this.isRefreshing = false;
-            this.loginServ.logOut();
-            return throwError(err);
-          })
-        );
-    }
+    return this.loginServ.refreshToken().pipe(
+      switchMap((token: Response) => {
+        console.log('new token created');
+        this.authServ.setAuthenticated(token.access_token);
+        this.authServ.setRefreshToken(token.refresh_token);
+        return next.handle(this.addTokenHeader(request, token.access_token));
+      }),
+      catchError((err) => {
+        return throwError(err);
+      })
+    );
   }
 }
 
